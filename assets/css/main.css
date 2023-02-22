@@ -907,7 +907,7 @@ input, select, textarea {
 
 		ul.icons li {
 			display: inline-block;
-			padding: 0 0.75em 0 0;
+			padding: 0 0.75rem 0 0.75rem;
 		}
 
 			ul.icons li:last-child {
@@ -918,11 +918,11 @@ input, select, textarea {
 				border-radius: 100%;
                 border-bottom: 0;
 				display: inline-block;
-				height: 2.25rem;
-				line-height: 2.25rem;
+				height: 3.25rem;
+				line-height: 3.25rem;
 				text-align: center;
-				width: 2.25rem;
-                margin: 0px 0px 0px 0.25rem;
+				width: 3.25rem;
+				margin: 0.4rem 0rem 0rem 0.25rem;
 			}
 
 				ul.icons li a:hover {
