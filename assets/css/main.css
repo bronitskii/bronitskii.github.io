@@ -307,7 +307,7 @@ input, select, textarea {
 
 /* Form */
 
-	form {
+	/* form {
 		margin: 0 0 2rem 0;
 	}
 
@@ -580,7 +580,7 @@ input, select, textarea {
 	.formerize-placeholder {
 		color: rgba(255, 255, 255, 0.5) !important;
 		opacity: 1.0;
-	}
+	} */
 
 /* Box */
 
