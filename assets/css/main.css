@@ -427,7 +427,6 @@ hr {
 
 
 /* Box */
-
 .box {
 	border-radius: 4px;
 	border: solid 1px #ffffff;
@@ -1781,4 +1780,22 @@ body.is-article-visible #footer {
 
 body.is-preload #footer {
 	opacity: 0;
+}
+
+.scramble {
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.stext {
+	font-weight: 100;
+	font-size: 0.9rem;
+	color: #B8D4DE;
+}
+
+.dud {
+	color: #45717b;
 }
