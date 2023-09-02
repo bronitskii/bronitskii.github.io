@@ -1051,15 +1051,17 @@ body.is-preload #bg:before {
 	-webkit-justify-content: space-between;
 	-ms-justify-content: space-between;
 	justify-content: space-between;
-	position: relative;
-	min-height: 90vh;
 	width: 100%;
 	padding: 4rem 2rem;
+	/* padding: 0; */
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
 	z-index: 3;
 }
 
 #wrapper:before {
-	content: '';
+	/* content: ''; */
 	display: block;
 }
 
@@ -1077,7 +1079,9 @@ body.is-preload #bg:before {
 
 @media screen and (max-width: 480px) {
 
-	#wrapper {}
+	#wrapper {
+		max-height: 100%;
+	}
 
 }
 
@@ -1487,7 +1491,7 @@ body.is-preload #header .content .inner {
 }
 
 .container::-webkit-scrollbar-track {
-	background: #transparent;
+	background: transparent;
 }
 
 .container::-webkit-scrollbar-thumb {
@@ -1799,10 +1803,11 @@ body.is-preload #footer {
 
 @media (max-width: 767px) {
 	.stext {
-    font-size: 0.7rem;
-    letter-spacing: 0.1rem;
+		font-size: 0.7rem;
+		letter-spacing: 0.1rem;
 	}
 
-.dud {
-	color: #45717b;
+	.dud {
+		color: #45717b;
+	}
 }
