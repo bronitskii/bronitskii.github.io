@@ -1080,8 +1080,8 @@ body.is-preload #bg:before {
 @media screen and (max-width: 480px) {
 
 	#wrapper {
-		max-height: 100%;
-	}
+    max-height: 100%;
+}
 
 }
 
@@ -1803,11 +1803,11 @@ body.is-preload #footer {
 
 @media (max-width: 767px) {
 	.stext {
-		font-size: 0.7rem;
-		letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1rem;
 	}
 
-	.dud {
-		color: #45717b;
-	}
+.dud {
+	color: #45717b;
+}
 }
