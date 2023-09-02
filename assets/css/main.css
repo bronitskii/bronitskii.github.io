@@ -1792,10 +1792,16 @@ body.is-preload #footer {
 
 .stext {
 	font-weight: 100;
-	font-size: 0.7rem;
-	letter-spacing: 0.1rem;
+	font-size: 0.9rem;
+	letter-spacing: 0.2rem;
 	color: #B8D4DE;
 }
+
+@media (max-width: 767px) {
+	.stext {
+    font-size: 0.7rem;
+    letter-spacing: 0.1rem;
+	}
 
 .dud {
 	color: #45717b;
