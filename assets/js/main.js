@@ -505,7 +505,7 @@ function closeModal(modalId) {
 class TextScramble {
 	constructor(el) {
 		this.el = el;
-		this.chars = '!<>-_\\/[]{}ß%&*åç-=___+-≈#$>@/';
+		this.chars = '!<>-_\\/[]{}ß%&*-=___+-≈#$>@/';
 		this.update = this.update.bind(this);
 	}
 	setText(newText) {
@@ -557,7 +557,7 @@ class TextScramble {
 }
 
 const phrases = [
-	'An Avid and experienced translator / interpreter',
+	'An avid and experienced translator / interpreter',
 	'photoshop creator and network enthusiast.',];
 
 const el = document.querySelector('.stext');
