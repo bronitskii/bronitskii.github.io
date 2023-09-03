@@ -654,4 +654,4 @@ function draw() {
 }
 
 // Call the draw function repeatedly with a 50-millisecond interval for animation
-setInterval(draw, 50);
+setInterval(draw, 70);
