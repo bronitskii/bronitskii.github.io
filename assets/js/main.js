@@ -581,16 +581,16 @@ window.onload = function () {
 	var blurAmount = 10;
 	var brightnessAmount = 0;
 	var intervalId = setInterval(function () {
-	  if (blurAmount < 0.1 && brightnessAmount > 50) {
-		clearInterval(intervalId);
-		console.log('animation finished')
-	  } else {
-		blurAmount -= 0.1;
-		brightnessAmount += 0.5;
-		canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
-	  }
+		if (blurAmount < 0.1 && brightnessAmount > 50) {
+			clearInterval(intervalId);
+			console.log('animation finished')
+		} else {
+			blurAmount -= 0.1;
+			brightnessAmount += 0.5;
+			canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
+		}
 	}, 30);
-  };
+};
 
 // Function to set canvas dimensions
 function setCanvasDimensions() {
@@ -612,11 +612,12 @@ setCanvasDimensions();
 window.addEventListener("resize", setCanvasDimensions);
 
 // Define the characters that will fall
-var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+// var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+var characters = "10";
 characters = characters.split("");
 
 // Set the font size and calculate the number of columns
-var font_size = 10;
+var font_size = 13;
 var columns = canvas.width / font_size;
 
 // Initialize an array to track the vertical position of each character
@@ -655,3 +656,4 @@ function draw() {
 
 // Call the draw function repeatedly with a 50-millisecond interval for animation
 setInterval(draw, 70);
+
