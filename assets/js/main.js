@@ -572,3 +572,86 @@ const next = () => {
 };
 
 next();
+// Get the canvas element and its 2D rendering context
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+// Add animation to go from 10px blur to 0px blur and from 0% brightness to 50% brightness on window load
+window.onload = function () {
+	var blurAmount = 10;
+	var brightnessAmount = 0;
+	var intervalId = setInterval(function () {
+		if (blurAmount < 0.1 && brightnessAmount > 50) {
+			clearInterval(intervalId);
+			console.log('animation finished')
+		} else {
+			blurAmount -= 0.01;
+			brightnessAmount += 0.05;
+			canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
+		}
+	}, 3);
+};
+
+// Function to set canvas dimensions
+function setCanvasDimensions() {
+	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
+
+	// Recalculate the number of columns based on new canvas width
+	columns = canvas.width / font_size;
+
+	// Reset the position of falling characters
+	drops = [];
+	for (var x = 0; x < columns; x++) {
+		drops[x] = 1;
+	}
+}
+
+// Call setCanvasDimensions initially and on window resize
+setCanvasDimensions();
+window.addEventListener("resize", setCanvasDimensions);
+
+// Define the characters that will fall
+var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+characters = characters.split("");
+
+// Set the font size and calculate the number of columns
+var font_size = 10;
+var columns = canvas.width / font_size;
+
+// Initialize an array to track the vertical position of each character
+var drops = [];
+for (var x = 0; x < columns; x++) {
+	drops[x] = 1;
+}
+
+// Function to draw the falling characters
+function draw() {
+	// Create a semi-transparent background
+	ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+	// Set the character color
+	ctx.fillStyle = "#45717b";
+	ctx.font = font_size + "px Arial";
+
+	// Iterate through columns and characters
+	for (var i = 0; i < drops.length; i++) {
+		// Choose a random character
+		var text = characters[Math.floor(Math.random() * characters.length)];
+
+		// Draw the character at the current position
+		ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+		// Reset the character position if it reaches the bottom of the canvas
+		if (drops[i] * font_size > canvas.height) {
+			drops[i] = 0;
+		}
+
+		// Move the character down for the next frame
+		drops[i]++;
+	}
+}
+
+// Call the draw function repeatedly with a 50-millisecond interval for animation
+setInterval(draw, 50);
