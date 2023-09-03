@@ -581,16 +581,16 @@ window.onload = function () {
 	var blurAmount = 10;
 	var brightnessAmount = 0;
 	var intervalId = setInterval(function () {
-		if (blurAmount < 0.1 && brightnessAmount > 50) {
-			clearInterval(intervalId);
-			console.log('animation finished')
-		} else {
-			blurAmount -= 0.01;
-			brightnessAmount += 0.05;
-			canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
-		}
-	}, 3);
-};
+	  if (blurAmount < 0.1 && brightnessAmount > 50) {
+		clearInterval(intervalId);
+		console.log('animation finished')
+	  } else {
+		blurAmount -= 0.1;
+		brightnessAmount += 0.5;
+		canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
+	  }
+	}, 30);
+  };
 
 // Function to set canvas dimensions
 function setCanvasDimensions() {

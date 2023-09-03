@@ -1395,7 +1395,7 @@ body.is-preload #header .content .inner {
 	opacity: 1;
 	border-radius: 20px;
 	max-height: 90vh;
-	overflow: hidden;
+	overflow: scroll;
 }
 
 #main article .close {
