@@ -576,84 +576,101 @@ next();
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+// Define the minimum distance between characters
+var minDistance = 20;
+
 // Add animation to go from 10px blur to 0px blur and from 0% brightness to 50% brightness on window load
 window.onload = function () {
-	var blurAmount = 10;
-	var brightnessAmount = 0;
-	var intervalId = setInterval(function () {
-		if (blurAmount < 0.1 && brightnessAmount > 50) {
-			clearInterval(intervalId);
-			console.log('animation finished')
-		} else {
-			blurAmount -= 0.1;
-			brightnessAmount += 0.5;
-			canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
-		}
-	}, 30);
+    var blurAmount = 10;
+    var brightnessAmount = 0;
+    var intervalId = setInterval(function () {
+        if (blurAmount < 0.1 && brightnessAmount > 50) {
+            clearInterval(intervalId);
+            console.log('animation finished')
+        } else {
+            blurAmount -= 0.1;
+            brightnessAmount += 0.5;
+            canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
+        }
+    }, 30);
 };
 
 // Function to set canvas dimensions
 function setCanvasDimensions() {
-	canvas.height = window.innerHeight;
-	canvas.width = window.innerWidth;
-
-	// Recalculate the number of columns based on new canvas width
-	columns = canvas.width / font_size;
-
-	// Reset the position of falling characters
-	drops = [];
-	for (var x = 0; x < columns; x++) {
-		drops[x] = 1;
-	}
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 }
 
 // Call setCanvasDimensions initially and on window resize
 setCanvasDimensions();
 window.addEventListener("resize", setCanvasDimensions);
 
-// Define the characters that will fall
-// var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-var characters = "10";
-characters = characters.split("");
+// Define the characters that will be displayed
+var characters = [];
 
-// Set the font size and calculate the number of columns
+// Set the font size
 var font_size = 13;
-var columns = canvas.width / font_size;
 
-// Initialize an array to track the vertical position of each character
-var drops = [];
-for (var x = 0; x < columns; x++) {
-	drops[x] = 1;
+// Function to check if two characters intersect
+function intersect(x1, y1, x2, y2) {
+    var distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    return distance < minDistance;
 }
 
-// Function to draw the falling characters
+// Function to get a random position for a character that does not intersect with other characters
+function getRandomPosition() {
+    var x, y, intersecting;
+    do {
+        x = Math.floor(Math.random() * canvas.width);
+        y = Math.floor(Math.random() * canvas.height);
+        intersecting = false;
+        for (var i = 0; i < characters.length; i++) {
+            if (intersect(x, y, characters[i].x, characters[i].y)) {
+                intersecting = true;
+                break;
+            }
+        }
+    } while (intersecting);
+    return {x: x, y: y};
+}
+
+// Function to draw the random 1s and 0s at random positions on the canvas with fade-in effect
 function draw() {
-	// Create a semi-transparent background
-	ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Create a semi-transparent background
+    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-	// Set the character color
-	ctx.fillStyle = "#45717b";
-	ctx.font = font_size + "px Arial";
+    // Set the character color
+    ctx.fillStyle = "#45717b";
+    ctx.font = font_size + "px Arial";
 
-	// Iterate through columns and characters
-	for (var i = 0; i < drops.length; i++) {
-		// Choose a random character
-		var text = characters[Math.floor(Math.random() * characters.length)];
-
-		// Draw the character at the current position
-		ctx.fillText(text, i * font_size, drops[i] * font_size);
-
-		// Reset the character position if it reaches the bottom of the canvas
-		if (drops[i] * font_size > canvas.height) {
-			drops[i] = 0;
-		}
-
-		// Move the character down for the next frame
-		drops[i]++;
-	}
+    // Draw random 1s and 0s at random positions on the canvas with fade-in effect
+    var text, opacity, position;
+    for (var i = 0; i < 10; i++) {
+        if (Math.random() < 0.5) {
+            text = "0";
+        } else {
+            text = "1";
+        }
+        position = getRandomPosition();
+        opacity = 0;
+        ctx.globalAlpha = opacity;
+        characters.push({x: position.x, y: position.y});
+        (function (x, y, text, opacity) {
+            setTimeout(function () {
+                var fadeInterval = setInterval(function () {
+                    if (opacity >= 1) {
+                        clearInterval(fadeInterval);
+                    } else {
+                        opacity += 0.05;
+                        ctx.globalAlpha = opacity;
+                        ctx.fillText(text, x, y);
+                    }
+                }, 50);
+            }, Math.random() * 2000);
+        })(position.x, position.y, text, opacity);
+    }
 }
 
-// Call the draw function repeatedly with a 50-millisecond interval for animation
-setInterval(draw, 70);
-
+// Call the draw function repeatedly with a 2-second interval for animation
+setInterval(draw, 300);
