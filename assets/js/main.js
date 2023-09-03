@@ -673,4 +673,9 @@ function draw() {
 }
 
 // Call the draw function repeatedly with a 2-second interval for animation
-setInterval(draw, 300);
+var intervalId = setInterval(draw, 100);
+
+// Stop the interval after 15 seconds
+setTimeout(function() {
+    clearInterval(intervalId);
+}, 15000);
