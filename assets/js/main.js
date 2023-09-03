@@ -608,8 +608,9 @@ window.addEventListener("resize", setCanvasDimensions);
 // Define the characters that will be displayed
 var characters = [];
 
-// Set the font size
-var font_size = 13;
+    // Set the font size
+    var font_size = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 9 : 13;
+    ctx.font = font_size + "px Arial";
 
 // Function to check if two characters intersect
 function intersect(x1, y1, x2, y2) {
@@ -637,12 +638,13 @@ function getRandomPosition() {
 // Function to draw the random 1s and 0s at random positions on the canvas with fade-in effect
 function draw() {
     // Create a semi-transparent background
-    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.01)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Set the character color
     ctx.fillStyle = "#45717b";
     ctx.font = font_size + "px Arial";
+
 
     // Draw random 1s and 0s at random positions on the canvas with fade-in effect
     var text, opacity, position;
@@ -659,10 +661,10 @@ function draw() {
         (function (x, y, text, opacity) {
             setTimeout(function () {
                 var fadeInterval = setInterval(function () {
-                    if (opacity >= 1) {
+                    if (opacity >= 0.481) {
                         clearInterval(fadeInterval);
                     } else {
-                        opacity += 0.05;
+                        opacity += 0.95;
                         ctx.globalAlpha = opacity;
                         ctx.fillText(text, x, y);
                     }
