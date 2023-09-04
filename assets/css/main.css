@@ -1398,7 +1398,7 @@ body.is-preload #header .content .inner {
 }
 
 .scrollbar {
-	overflow-y: scroll;
+	overflow-y: auto;
 	scrollbar-width: 3px;
 	scrollbar-color: #B8D4DE #202628;
 	height: 70vh;
@@ -1500,7 +1500,7 @@ body.is-preload #header .content .inner {
 	padding: 0 1rem;
 	margin-top: 1rem;
 	overflow: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .container::-webkit-scrollbar {
@@ -1607,7 +1607,7 @@ body.is-preload #header .content .inner {
 
 .main {
 	height: 126rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 
