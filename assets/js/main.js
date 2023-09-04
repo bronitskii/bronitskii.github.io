@@ -675,11 +675,11 @@ function draw() {
 }
 
 // Call the draw function repeatedly with a 2-second interval for animation
-var intervalTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 800 : 300;
+var intervalTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 500 : 300;
 var intervalId = setInterval(draw, intervalTime);
 
 // Stop the interval after 5 seconds
-var timeoutTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 10000 : 15000;
+var timeoutTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 6000 : 6000;
 setTimeout(function() {
     clearInterval(intervalId);
 }, timeoutTime);
