@@ -1394,6 +1394,7 @@ body.is-preload #header .content .inner {
 	transform: translateY(0);
 	opacity: 1;
 	max-height: 90vh;
+	overflow: hidden;
 }
 
 .scrollbar {
