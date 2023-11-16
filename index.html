@@ -9,24 +9,24 @@
     integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
   <title>Vladislav Bronitskii</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="assets/css/main.css">
   <noscript>
-    <link rel="stylesheet" href="assets/css/noscript.css" />
+    <link rel="stylesheet" href="assets/css/noscript.css">
   </noscript>
 </head>
 
-<body class="is-preload">
+<body class="is-article-visible">
 
   <!-- background canvas -->
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" height="780" width="1440" style="filter: brightness(50%) blur(0px);"></canvas>
 
   <!-- Wrapper -->
   <div id="wrapper">
 
     <!-- Header -->
-    <header id="header" style="">
+    <header id="header" style="display: none;">
       <div class="content">
         <div class="inner">
 
@@ -37,7 +37,13 @@
     margin-top: 1rem;
 ">Vladislav Bronitskii</h1>
           <div class="scramble">
-            <div class="stext"></div>
+            <div class="stext">A<span class="dud">=</span> <span class="dud">-</span><span class="dud">_</span>s<span
+                class="dud">_</span><span class="dud">&gt;</span>a <span class="dud">&lt;</span>re<span
+                class="dud">/</span>ter e<span class="dud">&gt;</span>ced<span class="dud">-</span><span
+                class="dud">}</span>r<span class="dud">{</span>r<span class="dud">-</span><span
+                class="dud">[</span><span class="dud">≈</span>n<span class="dud">{</span>husiaste<span
+                class="dud">=</span>pe<span class="dud">*</span><span class="dud">/</span><span class="dud">\</span>
+            </div>
           </div>
         </div>
       </div>
@@ -80,7 +86,7 @@
     </header>
 
     <!-- Main -->
-    <div id="main" style="display: none;">
+    <div id="main" style="">
 
       <!-- More -->
       <article id="more" style="display: none;" class="">
@@ -168,6 +174,9 @@
 ">Networking Administrator</a></h4>
         </div>
 
+        <div class="close">Close</div>
+        <div class="close">Close</div>
+        <div class="close">Close</div>
       </article>
 
 
@@ -204,13 +213,13 @@
             </div>
 
             <div class="gallery-item">
-              <img id="img3" src="images/img3.webp" class="scale-on-hover" alt="Image 3" data-imgsrc="images/img3.jpeg"
+              <img id="img3" src="images/img3.webp" class="scale-on-hover" alt="Image 3" data-imgsrc="images/img3.jpg"
                 onclick="openModal('myModal3', 'images/img3.jpeg')">
               <div class="loading-indicator"></div>
             </div>
 
             <div class="gallery-item">
-              <img id="img4" src="images/img4.webp" class="scale-on-hover" alt="Image 4" data-imgsrc="images/img4.jpeg"
+              <img id="img4" src="images/img4.webp" class="scale-on-hover" alt="Image 4" data-imgsrc="images/img4.jpg"
                 onclick="openModal('myModal4', 'images/img4.jpeg')">
               <div class="loading-indicator"></div>
             </div>
@@ -276,6 +285,17 @@
               <div class="loading-indicator"></div>
             </div>
 
+            <div class="gallery-item">
+              <img id="img14" src="images/img15.webp" class="scale-on-hover" alt="Image 15"
+                data-imgsrc="images/img15.jpeg" onclick="openModal('myModal15', 'images/img15.jpeg')" loading="lazy">
+              <div class="loading-indicator"></div>
+            </div>
+
+            <div class="gallery-item">
+              <img id="img14" src="images/img16.webp" class="scale-on-hover" alt="Image 16"
+                data-imgsrc="images/img16.jpeg" onclick="openModal('myModal16', 'images/img16.jpeg')" loading="lazy">
+              <div class="loading-indicator"></div>
+            </div>
           </div>
 
 
@@ -302,11 +322,11 @@
 
           <div id="myModal2" class="modal" style="display: none;">
             <span class="close" onclick="closeModal('myModal2')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+            <img class="modal-content" src="images/img2.jpeg" alt="Image 2" style="display: block;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
-            <div class="caption" style="">
+            <div class="caption" style="display: block;">
               <h3 style="
     text-align: center;
     letter-spacing: 11.4px;
@@ -324,9 +344,44 @@
 
           </div>
 
-
           <div id="myModal3" class="modal" style="display: none; padding-top: 2rem;">
             <span class="close" onclick="closeModal('myModal3')">×</span>
+            <img class="modal-content" src="" alt="Image 3" style="">
+            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+
+
+            <div class="caption" style="display: block;">
+              <h3 style="text-align: center; letter-spacing: 3.1px; font-size: 0.4rem; margin-bottom: 0.2rem;">Defiance
+                in Red: A Silhouette of Solidarity</h3>
+              <p style="
+    text-align: center;
+    opacity: 30%;
+    margin-bottom: 4.5rem;
+  ">iPhone 15 Pro</p>
+            </div>
+          </div>
+          <div id="myModal4" class="modal" style="display: none; padding-top: 2rem;">
+            <span class="close" onclick="closeModal('myModal4')">×</span>
+            <img class="modal-content" src="" alt="Image 1" style="">
+            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+
+
+            <div class="caption" style="display: block;">
+              <h3 style="
+    text-align: center;
+    letter-spacing: 9px;
+    font-size: 0.4rem;
+    margin-bottom: 0.2rem;
+  ">Bike Embassy</h3>
+              <p style="
+    text-align: center;
+    opacity: 30%;
+    margin-bottom: 4.5rem;
+  ">iPhone 15 Pro</p>
+            </div>
+          </div>
+          <div id="myModal5" class="modal" style="display: none; padding-top: 2rem;">
+            <span class="close" onclick="closeModal('myModal5')">×</span>
             <img class="modal-content" src="" alt="Image 1" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
@@ -348,13 +403,13 @@
           </div>
 
 
-          <div id="myModal4" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal4')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal6" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal6')">×</span>
+            <img class="modal-content" src="images/img6.jpeg" alt="Image 6" style="display: block;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
-            <div class="caption" style="">
+            <div class="caption" style="display: block;">
               <h3 style="
     text-align: center;
     letter-spacing: 11.4px;
@@ -370,9 +425,9 @@
           </div>
 
 
-          <div id="myModal5" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal5')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal7" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal7')">×</span>
+            <img class="modal-content" src="" alt="Image 7" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -393,9 +448,9 @@
             </div>
           </div>
 
-          <div id="myModal6" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal6')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal8" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal8')">×</span>
+            <img class="modal-content" src="" alt="Image 8" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -415,9 +470,9 @@
             </div>
           </div>
 
-          <div id="myModal7" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal7')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal9" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal9')">×</span>
+            <img class="modal-content" src="" alt="Image 9" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -437,9 +492,9 @@
             </div>
           </div>
 
-          <div id="myModal8" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal8')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal10" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal10')">×</span>
+            <img class="modal-content" src="" alt="Image 10" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -460,8 +515,8 @@
             </div>
           </div>
 
-          <div id="myModal9" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal9')">×</span>
+          <div id="myModal11" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal11')">×</span>
             <img class="modal-content" src="" alt="Image 1" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
@@ -484,9 +539,9 @@
             </div>
           </div>
 
-          <div id="myModal10" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal10')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal12" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal12')">×</span>
+            <img class="modal-content" src="" alt="Image 12" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -506,9 +561,9 @@
             </div>
           </div>
 
-          <div id="myModal11" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal11')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal13" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal13')">×</span>
+            <img class="modal-content" src="" alt="Image 13" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -530,9 +585,9 @@
             </div>
           </div>
 
-          <div id="myModal12" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal12')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal14" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal14')">×</span>
+            <img class="modal-content" src="" alt="Image 14" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -553,9 +608,9 @@
           </div>
 
 
-          <div id="myModal13" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal13')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal15" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal15')">×</span>
+            <img class="modal-content" src="" alt="Image 15" style="">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -578,13 +633,13 @@
             </div>
           </div>
 
-          <div id="myModal14" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal14')">×</span>
-            <img class="modal-content" src="" alt="Image 1" style="">
+          <div id="myModal16" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal16')">×</span>
+            <img class="modal-content" src="images/img16.jpeg" alt="Image 16" style="display: block;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
-            <div class="caption" style="">
+            <div class="caption" style="display: block;">
               <h3 style="
     text-align: center;
     letter-spacing: 9.4px;
@@ -605,11 +660,15 @@
           </div>
           <div class="close">Close</div>
           <div class="close">Close</div>
+        </div>
+        <div class="close">Close</div>
+        <div class="close">Close</div>
+        <div class="close">Close</div>
       </article>
 
 
       <!-- Contact -->
-      <article id="contact">
+      <article id="contact" style="display: none;">
         <h2 class="major">Contact</h2>
         <form method="post" action="#">
 
@@ -636,6 +695,10 @@
 ">You can click or tap on any of the contact icons above to reach me out.</h6>
 
           </ul>
+        </form>
+        <div class="close">Close</div>
+        <div class="close">Close</div>
+        <div class="close">Close</div>
       </article>
 
     </div>
@@ -651,6 +714,8 @@
   <script src="assets/js/breakpoints.min.js"></script>
   <script src="assets/js/util.js"></script>
   <script src="assets/js/main.js"></script>
+
+
 
 </body>
 
