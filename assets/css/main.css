@@ -175,7 +175,7 @@ html {
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+	box-sizing: border-box;
 }
 
 body {
@@ -275,7 +275,6 @@ p {
 @media (max-width: 768px) {
 	.caption p {
 		font-size: 5px;
-		padding-bottom: 13rem;
 	}
 }
 
@@ -1405,12 +1404,6 @@ body.is-preload #header .content .inner {
 	padding-right: 2rem;
 }
 
-@media screen and (max-width: 480px) {
-	.scrollbar {
-		padding: 1rem 1rem;
-	}
-}
-
 .scrollbar::-webkit-scrollbar {
 	width: 3px;
 	background-color: #202628;
@@ -1509,6 +1502,7 @@ body.is-preload #header .content .inner {
 	overflow-y: auto;
 }
 
+
 .container::-webkit-scrollbar {
 	width: 3px;
 	background-color: #202628;
@@ -1521,6 +1515,15 @@ body.is-preload #header .content .inner {
 
 .container:hover::-webkit-scrollbar-thumb {
 	background-color: #B8D4DE;
+}
+
+/* Safari-specific styles */
+@media not all and (min-resolution:.001dpcm) {
+	@supports (-webkit-appearance:none) {
+		body.modal-open {
+			overflow: hidden;
+		}
+	}
 }
 
 
@@ -1685,7 +1688,7 @@ body.is-preload #header .content .inner {
 	display: flex;
 	max-width: 90%;
 	max-height: 90%;
-	padding-top: 11rem;
+	padding-top: 7rem;
 	justify-content: center;
 	align-content: center;
 	align-items: center;
