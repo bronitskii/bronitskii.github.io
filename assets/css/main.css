@@ -274,7 +274,6 @@ p {
 
 @media (max-width: 768px) {
 	.caption p {
-		
 		font-size: 5px;
 	}
 }
@@ -1422,7 +1421,7 @@ body.is-preload #header .content .inner {
 @media screen and (max-width: 736px) {
 
 	.scrollbar {
-		padding-right:0rem;
+		padding-right:0.25rem;
 	}
 	.scrollbar::-webkit-scrollbar {
 		width: 0px;
