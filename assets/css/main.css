@@ -1404,11 +1404,13 @@ body.is-preload #header .content .inner {
 	height: 70vh;
 	padding-right: 2rem;
 }
+
 @media screen and (max-width: 480px) {
 	.scrollbar {
-	  padding: 1rem 1rem;
+		padding: 1rem 1rem;
 	}
-  }
+}
+
 .scrollbar::-webkit-scrollbar {
 	width: 3px;
 	background-color: #202628;
