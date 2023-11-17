@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
+/* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600"); */
 
 html,
 body,
@@ -274,6 +274,7 @@ p {
 
 @media (max-width: 768px) {
 	.caption p {
+		
 		font-size: 5px;
 	}
 }
