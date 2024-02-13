@@ -557,8 +557,8 @@ class TextScramble {
 }
 
 const phrases = [
-	'A Professional Interpreter',
-	'Photoshop Creator and Network Enthusiast.',];
+	'Professional Interpreter',
+	'Photoshop Creator and Cybersecurity Enthusiast.',];
 
 const el = document.querySelector('.stext');
 const fx = new TextScramble(el);
