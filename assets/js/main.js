@@ -610,7 +610,8 @@ var characters = [];
 
     // Set the font size
     var font_size = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 9 : 13;
-    ctx.font = font_size + "px Arial";
+    // monospace font
+	ctx.font = font_size + "px Consolas, monospace";
 
 // Function to check if two characters intersect
 function intersect(x1, y1, x2, y2) {

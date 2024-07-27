@@ -18,13 +18,16 @@
 </head>
 
 <body class="is-preload">
-
+  <!-- background logo -->
+  <div class="bg-logo">
+    <img src="images/vblogo_bg.svg" alt="Vladislav Bronitskii" class="bg-logo">
+  </div>
   <!-- background canvas -->
   <canvas id="canvas"></canvas>
   
   <style>
     body {
-      background-image: url("images/bg.jpg");
+      /* background-image: url("images/vglogo_bg.svg"); */
       height: 90vh;
       width: 90vh;
     }
@@ -59,7 +62,7 @@
 
           <h1 style="
     margin-top: 1rem;
-">Vladislav Bronitskii</h1>
+">Vladislav_Bronitskii</h1>
           <div class="scramble">
             <div class="stext"></div>
           </div>
@@ -103,12 +106,24 @@
       </nav>
     </header>
 
-    <!-- Main -->
+    <!-- 
+    MARK: Main 
+    -->
     <div id="main" style="display: none;">
 
-      <!-- More -->
+      <!-- 
+      MARK: More
+      -->
       <article id="more" style="display: none;" class="">
-        <h2 class="major">More about me:</h2>
+        <nav class="breadcrumbs">
+          <div>
+            <span onclick="location.href='#'" style="cursor: pointer">[v:~]$</span>
+            <span class="slash">nvim</span>
+            <span onclick="location.href='#more'" style="cursor: pointer; color: #999">more-about-me.md</span>
+            <span class="text-cursor">&#9610;</span>
+          </div>
+        </nav>
+        <h2 class="major"></h2>
 
         <div class="scrollbar">
           <h3 style="text-align: center;">Languages:</h3>
@@ -193,10 +208,20 @@ across different fields, including technical, IT, financial, educational, and ga
       </article>
 
 
-      <!-- Gallery -->
+      <!-- 
+      MARK: Gallery
+       -->
       <article id="gallery" class="active" style="">
+        <nav class="breadcrumbs">
+          <div>
+            <span onclick="location.href='#'" style="cursor: pointer">[v:~]$</span>
+            <span class="slash">nvim</span>
+            <span onclick="location.href='#gallery'" style="cursor: pointer; color: #999">gallery.md</span>
+            <span class="text-cursor">&#9610;</span>
+          </div>
+        </nav>
 
-        <h2 class="major">Gallery</h2>
+        <h2 class="major"></h2>
         <h4 style="
     text-align: center;
 ">Photoshop &amp; Photography showcase</h4>
@@ -209,7 +234,6 @@ across different fields, including technical, IT, financial, educational, and ga
     padding: 0 2rem 1.5rem 2rem;
     border-bottom: solid 1px #ffff;
 ">Beyond Reality: My Collection of Sci-Fi and Surrealism Themed Photoshop and Photography Works</h6>
-
 
         <div class="container">
           <div class="row1">
@@ -331,7 +355,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal1" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal1')"></span>
             <img class="modal-content" src="" alt="Image 1" style="display: block; padding-top: 12rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
             <div class="caption" style="">
               <h3 style="
@@ -349,7 +373,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal2" class="modal" style="display: none;">
             <span class="close" onclick="closeModal('myModal2')"></span>
             <img class="modal-content" src="" alt="Image 2" style="display: block; margin-top: 3rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -373,7 +397,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal3" class="modal" style="display: none; padding-top: 2rem;">
             <span class="close" onclick="closeModal('myModal3')"></span>
             <img class="modal-content" src="" alt="Image 3" style="display: block; margin-top: 1rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -389,7 +413,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal4" class="modal" style="display: none; padding-top: 2rem;">
             <span class="close" onclick="closeModal('myModal4')"></span>
             <img class="modal-content" src="" alt="Image 4" style="margin-top: 1rem; display: block;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -409,7 +433,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal5" class="modal" style="display: none; padding-top: 2rem;">
             <span class="close" onclick="closeModal('myModal5')"></span>
             <img class="modal-content" src="" alt="Image 1" style="display: block; padding-top: 12rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -432,7 +456,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal6" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal6')"></span>
             <img class="modal-content" src="" alt="Image 6" style="display: block; margin-top: 2rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -454,7 +478,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal7" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal7')"></span>
             <img class="modal-content" src="" alt="Image 7" style="display: block; margin-top: 6rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -477,7 +501,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal8" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal8')"></span>
             <img class="modal-content" src="" alt="Image 8" style="display: block; margin-top: 5rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -498,7 +522,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal9" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal9')"></span>
             <img class="modal-content" src="" alt="Image 9" style="display: block;margin-top: 5rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -520,7 +544,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal10" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal10')"></span>
             <img class="modal-content" src="" alt="Image 10" style="display: block; margin-top: 4rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -543,7 +567,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal11" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal11')"></span>
             <img class="modal-content" src="" alt="Image 11" style="display: block; margin-top: 5rem; padding-top: 0rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -564,7 +588,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal12" class="modal" style="display: none;">
             <span class="close" onclick="closeModal('myModal12')"></span>
             <img class="modal-content" src="" alt="Image 12" style="display: block; margin-top: 5rem; padding-top: 1rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -586,7 +610,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal13" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal13')"></span>
             <img class="modal-content" src="" alt="Image 13" style="display: block; margin-top: 7rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -610,7 +634,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal14" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal14')"></span>
             <img class="modal-content" src="" alt="Image 14" style="display: block; margin-top: 3rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -631,7 +655,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal15" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal15')"></span>
             <img class="modal-content" src="" alt="Image 15" style="display: block; margin-top: 5rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -655,7 +679,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal16" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal16')"></span>
             <img class="modal-content" src="" alt="Image 16" style="display: block; margin-top: 4rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -678,7 +702,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal17" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal17')"></span>
             <img class="modal-content" src="" alt="Image 17" style="display: block; margin-top: 4rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -703,7 +727,7 @@ across different fields, including technical, IT, financial, educational, and ga
           <div id="myModal18" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal18')"></span>
             <img class="modal-content" src="" alt="Image 18" style="display: block; margin-top: 3rem;">
-            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+            <div class="loading-indicator" style="display: none;"><img src="images/vblogo.svg" alt="Loading..."></div>
 
 
             <div class="caption" style="">
@@ -733,9 +757,19 @@ across different fields, including technical, IT, financial, educational, and ga
 
         <div class="close"></div>
       </article>
-      <!-- Contact -->
+      <!-- 
+      MARK: Contact
+      -->
       <article id="contact">
-        <h2 class="major">Contact</h2>
+        <nav class="breadcrumbs">
+          <div>
+            <span onclick="location.href='#'" style="cursor: pointer">[v:~]$</span>
+            <span class="slash">nvim</span>
+            <span onclick="location.href='#more'" style="cursor: pointer; color: #999">contact-me.md</span>
+            <span class="text-cursor">&#9610;</span>
+          </div>
+        </nav>
+        <h2 class="major"></h2>
        
           <ul class="icons">
             <!-- <li><a href="https://t.me/vbxiii" class="fa fa-telegram" aria-hidden="true" style="

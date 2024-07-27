@@ -1399,9 +1399,10 @@ body.is-preload #header .content .inner {
 .scrollbar {
 	overflow-y: auto;
 	scrollbar-width: 3px;
-	scrollbar-color: #B8D4DE #202628;
+	scrollbar-color: #374043 #202628;
 	height: 70vh;
 	padding-right: 2rem;
+	padding-left: 2rem;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -1421,7 +1422,8 @@ body.is-preload #header .content .inner {
 @media screen and (max-width: 736px) {
 
 	.scrollbar {
-		padding-right:0.25rem;
+		padding-right:1rem;
+		padding-left:1rem;
 	}
 	.scrollbar::-webkit-scrollbar {
 		width: 0px;
@@ -1641,11 +1643,13 @@ body.is-preload #header .content .inner {
 	top: 35%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background: #fff url('images/loading.gif') no-repeat center;
+	background: #fff url('images/vblogo.svg') no-repeat center;
 	background-size: contain;
 	z-index: 999;
 	max-width: 90%;
 	max-height: 0%;
+	width: 40%;
+	height: 40%;
 }
 
 .loading-indicator img {
@@ -1832,6 +1836,8 @@ body.is-preload #footer {
 	font-size: 0.9rem;
 	letter-spacing: 0.2rem;
 	color: #B8D4DE;
+	font-family: monospace;
+
 }
 
 @media (max-width: 767px) {
@@ -1961,5 +1967,77 @@ body.is-preload #footer {
 
 	100% {
 		clip: rect(0px, 450px, 0px, 0px);
+	}
+}
+
+.breadcrumbs {
+	font-family: monospace;
+	font-size: 14px;
+	display: flex;
+  }
+  
+  .breadcrumbs span {
+	color: #555;
+	text-decoration: none !important;
+	transition: color 0.3s ease;
+  }
+  
+  .breadcrumbs a:hover {
+	color: #000;
+  }
+
+  .breadcrumbs .text-cursor {
+	color: #d53b3b;
+	animation: blink 1s infinite step-end;
+  }
+
+  @keyframes blink {
+	/* non smooth blinking */
+	0% {
+	  opacity: 1;
+	}
+	50% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 1;
+	}
+  }
+
+.breadcrumbsContainer {
+	display: flex;
+}
+
+.svgloader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	max-width: 200px;
+}
+
+.bg-logo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+
+	animation: fadeIn 2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
 	}
 }
