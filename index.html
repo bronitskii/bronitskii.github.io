@@ -31,12 +31,15 @@
 
     @media (max-width: 1024px) {
       body {
-        display: block;
+        display: flex;
+        background-repeat: no-repeat;
         align-content: center;
         align-items: stretch;
         flex-wrap: nowrap;
         justify-content: center;
         max-width: 100%;
+        max-height: 100%;
+        margin: auto;
         background-position: center;
         background-size: cover;
       }
@@ -265,14 +268,14 @@ across different fields, including technical, IT, financial, educational, and ga
             </div>
 
             <div class="gallery-item">
-              <img id="img10" src="images/img10.webp" class="scale-on-hover" alt="Image 10"
-                data-imgsrc="images/img10.jpeg" onclick="openModal('myModal10', 'images/img10.jpeg')">
+              <img id="img10" src="images/img10.webp" class="scale-on-hover" alt="Image 10" data-imgsrc="images/img10.jpeg"
+                onclick="openModal('myModal10', 'images/img10.jpeg')">
               <div class="loading-indicator"></div>
             </div>
 
             <div class="gallery-item">
-              <img id="img11" src="images/img11.webp" class="scale-on-hover" alt="Image 11"
-                data-imgsrc="images/img11.jpeg" onclick="openModal('myModal11', 'images/img11.jpeg')">
+              <img id="img11" src="images/img11.webp" class="scale-on-hover" alt="Image 11" data-imgsrc="images/img11.jpeg"
+                onclick="openModal('myModal11', 'images/img11.jpeg')">
               <div class="loading-indicator"></div>
             </div>
 
@@ -281,7 +284,6 @@ across different fields, including technical, IT, financial, educational, and ga
                 data-imgsrc="images/img12.jpeg" onclick="openModal('myModal12', 'images/img12.jpeg')">
               <div class="loading-indicator"></div>
             </div>
-
 
             <div class="gallery-item">
               <img id="img13" src="images/img13.webp" class="scale-on-hover" alt="Image 13"
@@ -295,15 +297,28 @@ across different fields, including technical, IT, financial, educational, and ga
               <div class="loading-indicator"></div>
             </div>
 
+
             <div class="gallery-item">
-              <img id="img14" src="images/img15.webp" class="scale-on-hover" alt="Image 15"
+              <img id="img15" src="images/img15.webp" class="scale-on-hover" alt="Image 15"
                 data-imgsrc="images/img15.jpeg" onclick="openModal('myModal15', 'images/img15.jpeg')">
               <div class="loading-indicator"></div>
             </div>
 
             <div class="gallery-item">
-              <img id="img14" src="images/img16.webp" class="scale-on-hover" alt="Image 16"
+              <img id="img16" src="images/img16.webp" class="scale-on-hover" alt="Image 16"
                 data-imgsrc="images/img16.jpeg" onclick="openModal('myModal16', 'images/img16.jpeg')">
+              <div class="loading-indicator"></div>
+            </div>
+
+            <div class="gallery-item">
+              <img id="img17" src="images/img17.webp" class="scale-on-hover" alt="Image 17"
+                data-imgsrc="images/img17.jpeg" onclick="openModal('myModal17', 'images/img17.jpeg')">
+              <div class="loading-indicator"></div>
+            </div>
+
+            <div class="gallery-item">
+              <img id="img18" src="images/img18.webp" class="scale-on-hover" alt="Image 18"
+                data-imgsrc="images/img18.jpeg" onclick="openModal('myModal18', 'images/img18.jpeg')">
               <div class="loading-indicator"></div>
             </div>
           </div>
@@ -479,7 +494,7 @@ across different fields, including technical, IT, financial, educational, and ga
 ">iPhone X</p>
             </div>
           </div>
-
+          
           <div id="myModal9" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal9')"></span>
             <img class="modal-content" src="" alt="Image 9" style="display: block;margin-top: 5rem;">
@@ -524,10 +539,53 @@ across different fields, including technical, IT, financial, educational, and ga
 ">Canon 7D mk II • f/2.8 • 21mm • exp 1/10</p>
             </div>
           </div>
-
+          
           <div id="myModal11" class="modal" style="display: none; padding-top: 1rem;">
             <span class="close" onclick="closeModal('myModal11')"></span>
-            <img class="modal-content" src="" alt="Image 1" style="display: block; margin-top: 7rem;">
+            <img class="modal-content" src="" alt="Image 11" style="display: block; margin-top: 5rem; padding-top: 0rem;">
+            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+
+
+            <div class="caption" style="">
+              <h3 style="
+    text-align: center;
+    letter-spacing: 6.4px;
+    margin-bottom: 0.2rem;
+    font-size: 0.5rem;
+">The P.R.O.T.O.T.Y.P.E</h3>
+              <p style="
+    font-size: 7px;
+    text-align: center;
+    opacity: 100%;
+">iPhone 15 Pro</p>
+            </div>
+          </div>
+
+          <div id="myModal12" class="modal" style="display: none;">
+            <span class="close" onclick="closeModal('myModal12')"></span>
+            <img class="modal-content" src="" alt="Image 12" style="display: block; margin-top: 5rem; padding-top: 1rem;">
+            <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
+
+
+            <div class="caption" style="">
+              <h3 style="
+    text-align: center;
+    letter-spacing: 6.4px;
+    margin-bottom: 0.2rem;
+    font-size: 0.5rem;
+">Blood In The Water</h3>
+              <p style="
+    font-size: 7px;
+    text-align: center;
+    opacity: 100%;
+">iPhone 15 Pro</p>
+            </div>
+          </div>
+
+
+          <div id="myModal13" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal13')"></span>
+            <img class="modal-content" src="" alt="Image 13" style="display: block; margin-top: 7rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -549,9 +607,9 @@ across different fields, including technical, IT, financial, educational, and ga
             </div>
           </div>
 
-          <div id="myModal12" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal12')"></span>
-            <img class="modal-content" src="" alt="Image 12" style="display: block; margin-top: 3rem;">
+          <div id="myModal14" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal14')"></span>
+            <img class="modal-content" src="" alt="Image 14" style="display: block; margin-top: 3rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -570,9 +628,9 @@ across different fields, including technical, IT, financial, educational, and ga
             </div>
           </div>
 
-          <div id="myModal13" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal13')"></span>
-            <img class="modal-content" src="" alt="Image 13" style="display: block; margin-top: 5rem;">
+          <div id="myModal15" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal15')"></span>
+            <img class="modal-content" src="" alt="Image 15" style="display: block; margin-top: 5rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -594,9 +652,9 @@ across different fields, including technical, IT, financial, educational, and ga
             </div>
           </div>
 
-          <div id="myModal14" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal14')"></span>
-            <img class="modal-content" src="" alt="Image 14" style="display: block; margin-top: 4rem;">
+          <div id="myModal16" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal16')"></span>
+            <img class="modal-content" src="" alt="Image 16" style="display: block; margin-top: 4rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -617,9 +675,9 @@ across different fields, including technical, IT, financial, educational, and ga
           </div>
 
 
-          <div id="myModal15" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal15')"></span>
-            <img class="modal-content" src="" alt="Image 15" style="display: block; margin-top: 4rem;">
+          <div id="myModal17" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal17')"></span>
+            <img class="modal-content" src="" alt="Image 17" style="display: block; margin-top: 4rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
@@ -642,9 +700,9 @@ across different fields, including technical, IT, financial, educational, and ga
             </div>
           </div>
 
-          <div id="myModal16" class="modal" style="display: none; padding-top: 1rem;">
-            <span class="close" onclick="closeModal('myModal16')"></span>
-            <img class="modal-content" src="" alt="Image 16" style="display: block; margin-top: 3rem;">
+          <div id="myModal18" class="modal" style="display: none; padding-top: 1rem;">
+            <span class="close" onclick="closeModal('myModal18')"></span>
+            <img class="modal-content" src="" alt="Image 18" style="display: block; margin-top: 3rem;">
             <div class="loading-indicator" style="display: none;"><img src="images/loading.gif" alt="Loading..."></div>
 
 
