@@ -1275,3 +1275,45 @@ body.is-preload #header .content .inner {
   border: none !important;
   background: transparent !important;
 }
+
+/* Modify More section text styling */
+#more .scrollbar h3 {
+    font-family: monospace;
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+#more .scrollbar h3::before {
+    content: "# ";
+    color: #d53b3b;
+}
+
+#more .scrollbar p {
+    font-family: monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #999; /* Changed from #b8d4de to #999 */
+    margin-bottom: 2rem;
+    padding-left: 1.2rem;
+    position: relative;
+    border: none !important; /* Remove any residual borders */
+    padding-bottom: 0 !important; /* Remove any residual padding */
+}
+
+#more .scrollbar p::before {
+    content: ">";
+    color: #d53b3b;
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+}
+
+/* Remove any specific styling for the photography paragraph */
+#more .scrollbar p[style] {
+    border: none !important;
+    padding: 0 0 0 1.2rem !important;
+    color: #999 !important;
+}
