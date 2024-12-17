@@ -1220,24 +1220,24 @@ body.is-preload #header .content .inner {
     z-index: 9999;
     opacity: 1;
     transition: opacity 0.5s ease-out;
-}
-
-.hacking-animation.hide {
-    opacity: 0;
-    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .hacking-animation__text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    transform: none;
+    left: auto;
+    top: auto;
     font-family: monospace;
-    font-size: 16px;
-    line-height: 1.8rem;
-    width: auto;
-    min-width: 50%;
+    font-size: 14px;
+    line-height: 1.5;
     color: #999;
+    max-width: 100%;
+    word-break: break-all;
+    padding: 10px;
 }
 
 .hacking-animation__prompt {
@@ -1254,10 +1254,11 @@ body.is-preload #header .content .inner {
     margin-left: 2px;
 }
 
-@keyframes cursor-blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
+@media screen and (max-width: 480px) {
+    .hacking-animation__text {
+        font-size: 12px;
+        line-height: 1.4;
+    }
 }
 
 /* Override any residual mobile menu styles */
