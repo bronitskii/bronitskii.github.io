@@ -751,32 +751,21 @@ body.is-preload #header .content .inner {
   z-index: 3;
 }
 #main article {
-  -moz-transform: translateY(0.25rem);
-  -webkit-transform: translateY(0.25rem);
-  -ms-transform: translateY(0.25rem);
-  transform: translateY(0.25rem);
-  -moz-transition: opacity 325ms ease-in-out, -moz-transform 325ms ease-in-out;
-  -webkit-transition: opacity 325ms ease-in-out,
-    -webkit-transform 325ms ease-in-out;
-  -ms-transition: opacity 325ms ease-in-out, -ms-transform 325ms ease-in-out;
-  transition: opacity 325ms ease-in-out, transform 325ms ease-in-out;
+  opacity: 0;
   padding: 4.5rem 2.5rem 1.5rem 2.5rem;
   position: relative;
   width: 40rem;
   max-width: 100%;
   border-radius: 4px;
-  opacity: 0;
   max-height: 90vh;
+  transition: opacity 0.3s ease-out;
+  will-change: opacity;
 }
+
 #main article.active {
-  -moz-transform: translateY(0);
-  -webkit-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0);
   opacity: 1;
-  max-height: 90vh;
-  overflow: hidden;
 }
+
 .scrollbar {
   overflow-y: auto;
   scrollbar-width: 3px;
@@ -1317,3 +1306,60 @@ body.is-preload #header .content .inner {
     padding: 0 0 0 1.2rem !important;
     color: #999 !important;
 }
+
+/* Progress bar */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+    pointer-events: none;
+    padding: 0 1.5rem; /* Equal padding on both sides */
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #d53b3b;
+    width: 0%;
+    transition: width 0.1s ease;
+    transform-origin: left; /* Ensure transform starts from left */
+}
+
+/* ...existing code... */
+
+.article-transition {
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.95);
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+    will-change: opacity;
+}
+
+.article-transition.hide {
+    opacity: 0;
+}
+
+/* ...rest of existing code... */
+
+#main article {
+    opacity: 0;
+    padding: 4.5rem 2.5rem 1.5rem 2.5rem;
+    position: relative;
+    width: 40rem;
+    max-width: 100%;
+    border-radius: 4px;
+    max-height: 90vh;
+    transition: opacity 0.3s ease-out;
+    will-change: opacity;
+}
+
+#main article.active {
+    opacity: 1;
+}
+
+/* ...rest of existing code... */

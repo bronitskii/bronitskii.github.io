@@ -5,63 +5,68 @@
 */
 
 window.addEventListener('load', function() {
-    const lines = [
-        "cd ~/Downloads/bronitskii.github.io",
-        "curl -sSL https://payload.sh | bash",
-		"chmod +x pAylOad.sh",
-		"./pAylOad.sh",
-		"open index.html",
-    ];
-    
-    const container = document.querySelector('.hacking-animation');
-    const textElem = container.querySelector('.hacking-animation__text');
-    let currentLine = 0;
-    let currentChar = 0;
+	const lines = [
+		"[v:~]$ cd ~/Downloads/bronitskii.github.io",
+		"[v:~]$ curl -sSLO https://payload.sh",
+		"[v:~]$ chmod +x p4y1O4d.sh",
+		"[v:~]$ ./p4y1O4d.sh",
+		"[PAYLOAD] Downloading payload...",
+		"[PAYLOAD] Bootstrapping...",
+		"[PAYLOAD] Welcome, V",
+		"[v:~]$ lynx index.html",
+	];
+	
+	const container = document.querySelector('.hacking-animation');
+	const textElem = container.querySelector('.hacking-animation__text');
+	let currentLine = 0;
+	let currentChar = 0;
 
-    function addNewLine() {
-        const line = document.createElement('div');
-        const prompt = document.createElement('span');
-        prompt.className = 'hacking-animation__prompt';
-        prompt.textContent = '[v:~]$ ';
-        line.appendChild(prompt);
-        textElem.appendChild(line);
-        return line;
-    }
+	function addNewLine() {
+		const line = document.createElement('div');
+		const prompt = document.createElement('span');
+		prompt.className = 'hacking-animation__prompt';
+		line.appendChild(prompt);
+		textElem.appendChild(line);
+		return line;
+	}
 
-    let currentLineElem = addNewLine();
-    const cursor = document.createElement('span');
-    cursor.className = 'hacking-animation__cursor';
-    currentLineElem.appendChild(cursor);
+	let currentLineElem = addNewLine();
+	const cursor = document.createElement('span');
+	cursor.className = 'hacking-animation__cursor';
+	currentLineElem.appendChild(cursor);
 
-    const interval = setInterval(() => {
-        if (currentLine >= lines.length) {
-            setTimeout(() => {
-                container.classList.add('hide');
-                setTimeout(() => container.remove(), 500);
-            }, 1000);
-            clearInterval(interval);
-            return;
-        }
+	const interval = setInterval(() => {
+		if (currentLine >= lines.length) {
+			setTimeout(() => {
+				container.classList.add('hide');
+				setTimeout(() => container.remove(), 500);
+			}, 1000);
+			clearInterval(interval);
+			return;
+		}
 
-        if (currentChar >= lines[currentLine].length) {
-            currentLine++;
-            currentChar = 0;
-            if (currentLine < lines.length) {
-                currentLineElem = addNewLine();
-                cursor.remove();
-                currentLineElem.appendChild(cursor);
-            }
-            return;
-        }
+		if (currentChar >= lines[currentLine].length) {
+			currentLine++;
+			currentChar = 0;
+			if (currentLine < lines.length) {
+				currentLineElem = addNewLine();
+				cursor.remove();
+				currentLineElem.appendChild(cursor);
+			}
+			return;
+		}
 
-        const char = lines[currentLine][currentChar];
-        const span = document.createElement('span');
-        span.textContent = char;
-        cursor.remove();
-        currentLineElem.appendChild(span);
-        currentLineElem.appendChild(cursor);
-        currentChar++;
-    }, 50);
+		const char = lines[currentLine][currentChar];
+		const span = document.createElement('span');
+		span.textContent = char;
+		if (lines[currentLine].startsWith('[PAYLOAD]')) {
+			span.style.color = '#d53b3b';
+		}
+		cursor.remove();
+		currentLineElem.appendChild(span);
+		currentLineElem.appendChild(cursor);
+		currentChar++;
+	}, 25);
 });
 
 (function ($) {
@@ -123,113 +128,212 @@ window.addEventListener('load', function() {
 		$nav_li.eq($nav_li.length / 2).addClass("is-middle");
 	}
 
-	// Main.
-	var delay = 325,
+	// Main locking mechanism.
+	var delay = 50,
 		locked = false;
 
-	// Methods.
-	$main._show = function (id, initial) {
-		var $article = $main_articles.filter("#" + id);
-		if ($article.length == 0) return;
+	/**
+	 * Hides the article content immediately: no longer waits for 300ms.
+	 * The overlay animation is triggered separately in $main._hide().
+	 */
+	function hideArticleContent($article) {
+		$article.removeClass("active");
+		$article.hide();
+		$main.hide();
+		$footer.show();
+		$header.show();
+		$body.removeClass("is-article-visible");
+		// We don't set locked = false here anymore so that
+		// the overlay can finish before unlocking.
+	}
 
-		if (locked || (typeof initial != "undefined" && initial === true)) {
-			$body.addClass("is-switching");
+	/**
+	 * Shows the article content with an opening animation.
+	 */
+	function showArticleContent($article) {
+		$main.show();
+		$article.show();
+			
+		requestAnimationFrame(() => {
 			$body.addClass("is-article-visible");
 			$main_articles.removeClass("active");
 			$header.hide();
 			$footer.hide();
-			$main.show();
-			$article.show();
 			$article.addClass("active");
-			locked = false;
+		});
+	}
 
-			setTimeout(function () {
-				$body.removeClass("is-switching");
-			}, initial ? 1000 : 0);
-
-			return;
-		}
-
+	$main._show = function (id, initial) {
+		var $article = $main_articles.filter('#' + id);
+		if ($article.length === 0) return;
+		
+		if (locked) return;
 		locked = true;
 
-		if ($body.hasClass("is-article-visible")) {
-			var $currentArticle = $main_articles.filter(".active");
-			$currentArticle.removeClass("active");
+		// Show the main container before animation starts but keep article hidden
+		$main.show();
+		$article.hide();
 
-			setTimeout(function () {
-				$currentArticle.hide();
+		const articleHackingAnimation = document.createElement('div');
+		articleHackingAnimation.className = 'hacking-animation article-transition';
+		const textElem = document.createElement('pre');
+		textElem.className = 'hacking-animation__text';
+		articleHackingAnimation.appendChild(textElem);
+		document.body.appendChild(articleHackingAnimation);
+
+		const lines = [
+			"cd articles",
+			"chmod 644 " + id + ".md",
+			"nvim " + id + ".md"
+		];
+		
+		let currentLine = 0;
+		let currentChar = 0;
+
+		function addNewLine() {
+			const line = document.createElement('div');
+			const prompt = document.createElement('span');
+			prompt.className = 'hacking-animation__prompt';
+			prompt.textContent = '[v:~]$ ';
+			line.appendChild(prompt);
+			textElem.appendChild(line);
+			return line;
+		}
+
+		let currentLineElem = addNewLine();
+		const cursor = document.createElement('span');
+		cursor.className = 'hacking-animation__cursor';
+		currentLineElem.appendChild(cursor);
+
+		const interval = setInterval(() => {
+			if (currentLine >= lines.length) {
+				// Prepare the article while animation is still visible
 				$article.show();
-
-				setTimeout(function () {
-					$article.addClass("active");
-					$window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-					setTimeout(function () {
-						locked = false;
-					}, delay);
-				}, 25);
-			}, delay);
-		} else {
-			$body.addClass("is-article-visible");
-
-			setTimeout(function () {
+				$body.addClass("is-article-visible");
+				$main_articles.removeClass("active");
 				$header.hide();
 				$footer.hide();
-				$main.show();
-				$article.show();
+				$article.addClass("active");
 
-				setTimeout(function () {
-					$article.addClass("active");
-					$window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-					setTimeout(function () {
+				setTimeout(() => {
+					articleHackingAnimation.classList.add('hide');
+					setTimeout(() => {
+						articleHackingAnimation.remove();
 						locked = false;
-					}, delay);
-				}, 25);
-			}, delay);
-		}
+					}, 150);
+				}, 150);
+				clearInterval(interval);
+				return;
+			}
+
+			if (currentChar >= lines[currentLine].length) {
+				currentLine++;
+				currentChar = 0;
+				if (currentLine < lines.length) {
+					currentLineElem = addNewLine();
+					cursor.remove();
+					currentLineElem.appendChild(cursor);
+				}
+				return;
+			}
+
+			const char = lines[currentLine][currentChar];
+			const span = document.createElement('span');
+			span.textContent = char;
+			cursor.remove();
+			currentLineElem.appendChild(span);
+			currentLineElem.appendChild(cursor);
+			currentChar++;
+		}, 25); // For faster typing
 	};
 
-	$main._hide = function (addState) {
+	/**
+	 * Overlays the close animation, but hides the article content immediately
+	 * so that by the end of this animation, we're already back on the home page.
+	 */
+	$main._hide = function(addState) {
+		// If an overlay is already present or locked, do nothing.
+		if (document.querySelector('.article-transition')) return;
+		if (locked) return;
+		locked = true;
+
 		var $article = $main_articles.filter(".active");
-		if (!$body.hasClass("is-article-visible")) return;
-
-		if (typeof addState != "undefined" && addState === true)
-			history.pushState(null, null, "#");
-
-		if (locked) {
-			$body.addClass("is-switching");
-			$article.removeClass("active");
-			$article.hide();
-			$main.hide();
-			$footer.show();
-			$header.show();
-			$body.removeClass("is-article-visible");
+		if (!$body.hasClass("is-article-visible")) {
 			locked = false;
-			$body.removeClass("is-switching");
-			$window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
 			return;
 		}
 
-		locked = true;
-		$article.removeClass("active");
+		// Hide the article right away, so the user sees only the overlay
+		// and the main page behind it.
+		hideArticleContent($article);
 
-		setTimeout(function () {
-			$article.hide();
-			$main.hide();
-			$footer.show();
-			$header.show();
+		const articleHackingAnimation = document.createElement('div');
+		articleHackingAnimation.className = 'hacking-animation article-transition';
+		const textElem = document.createElement('pre');
+		textElem.className = 'hacking-animation__text';
+		articleHackingAnimation.appendChild(textElem);
+		document.body.appendChild(articleHackingAnimation);
 
-			setTimeout(function () {
-				$body.removeClass("is-article-visible");
-				$window.scrollTop(0).triggerHandler("resize.flexbox-fix");
+		const lines = [
+			":wq",
+			"cd ..",
+			"clear"
+		];
+		
+		let currentLine = 0;
+		let currentChar = 0;
 
-				setTimeout(function () {
-					locked = false;
-				}, delay);
-			}, 25);
-		}, delay);
+		function addNewLine() {
+			const line = document.createElement('div');
+			const prompt = document.createElement('span');
+			prompt.className = 'hacking-animation__prompt';
+			prompt.textContent = '[v:~]$ ';
+			line.appendChild(prompt);
+			textElem.appendChild(line);
+			return line;
+		}
+
+		let currentLineElem = addNewLine();
+		const cursor = document.createElement('span');
+		cursor.className = 'hacking-animation__cursor';
+		currentLineElem.appendChild(cursor);
+
+		const interval = setInterval(() => {
+			if (currentLine >= lines.length) {
+				clearInterval(interval);
+
+				setTimeout(() => {
+					articleHackingAnimation.classList.add('hide');
+					setTimeout(() => {
+						articleHackingAnimation.remove();
+
+						// Now that the animation is fully gone, we unlock.
+						if (addState) history.pushState(null, null, "#");
+						locked = false;
+					}, 150);
+				}, 150);
+				return;
+			}
+
+			if (currentChar >= lines[currentLine].length) {
+				currentLine++;
+				currentChar = 0;
+				if (currentLine < lines.length) {
+					currentLineElem = addNewLine();
+					cursor.remove();
+					currentLineElem.appendChild(cursor);
+				}
+				return;
+			}
+
+			const char = lines[currentLine][currentChar];
+			const span = document.createElement('span');
+			span.textContent = char;
+			cursor.remove();
+			currentLineElem.appendChild(span);
+			currentLineElem.appendChild(cursor);
+			currentChar++;
+		}, 25); // For faster typing
 	};
 
 	// Articles.
@@ -543,4 +647,24 @@ closeButtons.forEach(function (btn) {
 			closeModal(modal.id);
 		}
 	}
+});
+
+// Add scroll progress functionality
+function updateProgressBar(article) {
+    const progressBar = article.querySelector('.progress-bar');
+    if (!progressBar) return;
+
+    const scrollElement = article.querySelector('.scrollbar, .container');
+    const scrollPosition = scrollElement.scrollTop;
+    const scrollHeight = scrollElement.scrollHeight;
+    const clientHeight = scrollElement.clientHeight;
+    
+    const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
+    progressBar.style.width = scrolled + '%';
+}
+
+document.querySelectorAll('#more .scrollbar, #gallery .container').forEach(element => {
+    element.addEventListener('scroll', () => {
+        updateProgressBar(element.closest('article'));
+    });
 });
