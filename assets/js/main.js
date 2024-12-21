@@ -4,7 +4,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
 	const lines = [
 		"[v:~]$ cd ~/Downloads/bronitskii.github.io",
 		"[v:~]$ curl -sSLO https://payload.sh",
@@ -15,7 +15,7 @@ window.addEventListener('load', function() {
 		"[PAYLOAD] Welcome, V",
 		"[v:~]$ lynx index.html",
 	];
-	
+
 	const container = document.querySelector('.hacking-animation');
 	const textElem = container.querySelector('.hacking-animation__text');
 	let currentLine = 0;
@@ -84,7 +84,6 @@ window.addEventListener('load', function() {
 			.match(/(msie|chrome|safari|firefox|opera)/)[0],
 	};
 
-	// Breakpoints.
 	breakpoints({
 		xlarge: ["1281px", "1680px"],
 		large: ["981px", "1280px"],
@@ -94,14 +93,12 @@ window.addEventListener('load', function() {
 		xxsmall: [null, "360px"],
 	});
 
-	// Play initial animations on page load.
 	$window.on("load", function () {
 		window.setTimeout(function () {
 			$body.removeClass("is-preload");
 		}, 100);
 	});
 
-	// Fix: Flexbox min-height bug on IE.
 	if (browser.name == "ie") {
 		var flexboxFixTimeoutId;
 
@@ -118,24 +115,17 @@ window.addEventListener('load', function() {
 			.triggerHandler("resize.flexbox-fix");
 	}
 
-	// Nav.
 	var $nav = $header.children("nav"),
 		$nav_li = $nav.find("li");
 
-	// Add "middle" alignment classes if we're dealing with an even number of items.
 	if ($nav_li.length % 2 == 0) {
 		$nav.addClass("use-middle");
 		$nav_li.eq($nav_li.length / 2).addClass("is-middle");
 	}
 
-	// Main locking mechanism.
 	var delay = 50,
 		locked = false;
 
-	/**
-	 * Hides the article content immediately: no longer waits for 300ms.
-	 * The overlay animation is triggered separately in $main._hide().
-	 */
 	function hideArticleContent($article) {
 		$article.removeClass("active");
 		$article.hide();
@@ -143,17 +133,12 @@ window.addEventListener('load', function() {
 		$footer.show();
 		$header.show();
 		$body.removeClass("is-article-visible");
-		// We don't set locked = false here anymore so that
-		// the overlay can finish before unlocking.
 	}
 
-	/**
-	 * Shows the article content with an opening animation.
-	 */
 	function showArticleContent($article) {
 		$main.show();
 		$article.show();
-			
+
 		requestAnimationFrame(() => {
 			$body.addClass("is-article-visible");
 			$main_articles.removeClass("active");
@@ -166,11 +151,10 @@ window.addEventListener('load', function() {
 	$main._show = function (id, initial) {
 		var $article = $main_articles.filter('#' + id);
 		if ($article.length === 0) return;
-		
+
 		if (locked) return;
 		locked = true;
 
-		// Show the main container before animation starts but keep article hidden
 		$main.show();
 		$article.hide();
 
@@ -183,10 +167,9 @@ window.addEventListener('load', function() {
 
 		const lines = [
 			"cd articles",
-			"chmod 644 " + id + ".md",
 			"nvim " + id + ".md"
 		];
-		
+
 		let currentLine = 0;
 		let currentChar = 0;
 
@@ -207,7 +190,6 @@ window.addEventListener('load', function() {
 
 		const interval = setInterval(() => {
 			if (currentLine >= lines.length) {
-				// Prepare the article while animation is still visible
 				$article.show();
 				$body.addClass("is-article-visible");
 				$main_articles.removeClass("active");
@@ -244,15 +226,10 @@ window.addEventListener('load', function() {
 			currentLineElem.appendChild(span);
 			currentLineElem.appendChild(cursor);
 			currentChar++;
-		}, 25); // For faster typing
+		}, 25);
 	};
 
-	/**
-	 * Overlays the close animation, but hides the article content immediately
-	 * so that by the end of this animation, we're already back on the home page.
-	 */
-	$main._hide = function(addState) {
-		// If an overlay is already present or locked, do nothing.
+	$main._hide = function (addState) {
 		if (document.querySelector('.article-transition')) return;
 		if (locked) return;
 		locked = true;
@@ -263,8 +240,6 @@ window.addEventListener('load', function() {
 			return;
 		}
 
-		// Hide the article right away, so the user sees only the overlay
-		// and the main page behind it.
 		hideArticleContent($article);
 
 		const articleHackingAnimation = document.createElement('div');
@@ -275,11 +250,10 @@ window.addEventListener('load', function() {
 		document.body.appendChild(articleHackingAnimation);
 
 		const lines = [
-			":wq",
+			":qa!",
 			"cd ..",
-			"clear"
 		];
-		
+
 		let currentLine = 0;
 		let currentChar = 0;
 
@@ -307,7 +281,6 @@ window.addEventListener('load', function() {
 					setTimeout(() => {
 						articleHackingAnimation.remove();
 
-						// Now that the animation is fully gone, we unlock.
 						if (addState) history.pushState(null, null, "#");
 						locked = false;
 					}, 150);
@@ -333,10 +306,9 @@ window.addEventListener('load', function() {
 			currentLineElem.appendChild(span);
 			currentLineElem.appendChild(cursor);
 			currentChar++;
-		}, 25); // For faster typing
+		}, 25);
 	};
 
-	// Articles.
 	$main_articles.each(function () {
 		var $this = $(this);
 		$('<div class="close">Close</div>')
@@ -350,7 +322,6 @@ window.addEventListener('load', function() {
 		});
 	});
 
-	// Events.
 	$body.on("click", function (event) {
 		if ($body.hasClass("is-article-visible")) $main._hide(true);
 	});
@@ -373,7 +344,6 @@ window.addEventListener('load', function() {
 		}
 	});
 
-	// Scroll restoration.
 	if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 	else {
 		var oldScrollPos = 0,
@@ -390,7 +360,6 @@ window.addEventListener('load', function() {
 			});
 	}
 
-	// Initialize.
 	$main.hide();
 	$main_articles.hide();
 
@@ -404,7 +373,6 @@ const galleryImgs = document.querySelectorAll(".gallery-item img");
 
 galleryImgs.forEach((img) => {
 	img.addEventListener("click", () => {
-		// Event handler for image click
 	});
 });
 
@@ -414,12 +382,15 @@ function openModal(modalId, imgSrc) {
 	const modalCaption = modal.querySelector(".caption");
 	const loadingIndicator = modal.querySelector(".loading-indicator");
 
-	// Show the modal
 	modal.style.display = "block";
 	setTimeout(() => {
 		modal.style.transform = "scale(1)";
 		modal.style.opacity = 1;
 	}, 10);
+
+	modal.addEventListener('click', (e) => {
+		e.stopPropagation();
+	});
 
 	modalCaption.style.display = "none";
 	modalImg.style.display = "none";
@@ -450,7 +421,7 @@ class TextScramble {
 		this.chars = "!<>-_\\/[]{}ß%&*-=___+-≈#$>@/";
 		this.update = this.update.bind(this);
 	}
-	
+
 	setText(newText) {
 		const oldText = this.el.innerText;
 		const length = Math.max(oldText.length, newText.length);
@@ -468,7 +439,7 @@ class TextScramble {
 		this.update();
 		return promise;
 	}
-	
+
 	update() {
 		let output = "";
 		let complete = 0;
@@ -495,7 +466,7 @@ class TextScramble {
 			this.frame++;
 		}
 	}
-	
+
 	randomChar() {
 		return this.chars[Math.floor(Math.random() * this.chars.length)];
 	}
@@ -649,22 +620,21 @@ closeButtons.forEach(function (btn) {
 	}
 });
 
-// Add scroll progress functionality
 function updateProgressBar(article) {
-    const progressBar = article.querySelector('.progress-bar');
-    if (!progressBar) return;
+	const progressBar = article.querySelector('.progress-bar');
+	if (!progressBar) return;
 
-    const scrollElement = article.querySelector('.scrollbar, .container');
-    const scrollPosition = scrollElement.scrollTop;
-    const scrollHeight = scrollElement.scrollHeight;
-    const clientHeight = scrollElement.clientHeight;
-    
-    const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
-    progressBar.style.width = scrolled + '%';
+	const scrollElement = article.querySelector('.scrollbar, .container');
+	const scrollPosition = scrollElement.scrollTop;
+	const scrollHeight = scrollElement.scrollHeight;
+	const clientHeight = scrollElement.clientHeight;
+
+	const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
+	progressBar.style.width = scrolled + '%';
 }
 
 document.querySelectorAll('#more .scrollbar, #gallery .container').forEach(element => {
-    element.addEventListener('scroll', () => {
-        updateProgressBar(element.closest('article'));
-    });
+	element.addEventListener('scroll', () => {
+		updateProgressBar(element.closest('article'));
+	});
 });
