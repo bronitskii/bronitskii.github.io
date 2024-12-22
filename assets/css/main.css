@@ -972,6 +972,7 @@ body.is-preload #header .content .inner {
   width: 100svw;
   height: 100svh;
   background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(8px);
   transform: scale(0.95);
   opacity: 0;
   transition: all 0.3s ease-out;
@@ -991,18 +992,6 @@ body.is-preload #header .content .inner {
   object-fit: contain;
   border-radius: 8px;
 }
-.modal-content .close {
-  position: absolute; /* Change from fixed to absolute */
-  top: 15px;
-  right: 35px;
-  color: #999;
-  font-size: 40px;
-  font-weight: 300;
-  font-family: monospace;
-  transition: color 0.3s ease;
-  z-index: 1002;
-  cursor: pointer;
-}
 .close {
   position: fixed;
   top: 15px;
@@ -1013,13 +1002,12 @@ body.is-preload #header .content .inner {
   font-family: monospace;
   transition: color 0.3s ease;
   z-index: 1002;
+  cursor: pointer;
 }
-
 .close:hover {
   color: #d53b3b;
   cursor: pointer;
 }
-
 .caption {
   position: absolute;
   bottom: 0;
