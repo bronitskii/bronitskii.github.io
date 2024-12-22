@@ -1003,10 +1003,22 @@ body.is-preload #header .content .inner {
   transition: color 0.3s ease;
   z-index: 1002;
   cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+  transform: translateZ(0);
 }
 .close:hover {
   color: #d53b3b;
-  cursor: pointer;
+}
+@media only screen and (max-width: 700px) {
+  .close {
+    position: fixed;
+    right: 25px;
+    top: 15px;
+    font-size: 30px;
+    padding: 10px;
+  }
 }
 .caption {
   position: absolute;
