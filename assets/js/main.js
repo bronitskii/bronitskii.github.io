@@ -407,33 +407,12 @@ function openModal(modalId, imgSrc) {
 }
 
 function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    const modalContent = modal.querySelector('.modal-content');
-    const modalImg = modalContent.querySelector('img');
-    
-    // Create wrapper for glitch effect
-    const wrapper = document.createElement('div');
-    wrapper.className = 'modal-image-wrapper';
-    modalImg.parentNode.insertBefore(wrapper, modalImg);
-    wrapper.appendChild(modalImg);
-    
-    // Add glitch class to trigger animation
-    wrapper.classList.add('glitch-close');
-    
-    // Start fade out after glitch animation
-    setTimeout(() => {
-        modal.style.transform = "scale(0.95)";
-        modal.style.opacity = 0;
-        
-        // Clean up and hide modal after animations
-        setTimeout(() => {
-            modal.style.display = "none";
-            wrapper.classList.remove('glitch-close');
-            modalImg.remove();
-            wrapper.parentNode.appendChild(modalImg);
-            wrapper.remove();
-        }, 300);
-    }, 400);
+	const modal = document.getElementById(modalId);
+	modal.style.transform = "scale(0.95)";
+	modal.style.opacity = 0;
+	setTimeout(() => {
+		modal.style.display = "none";
+	}, 300);
 }
 
 class TextScramble {
