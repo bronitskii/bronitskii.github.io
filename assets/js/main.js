@@ -886,18 +886,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const minSwipeDistance = 50; 
 
     document.addEventListener('touchstart', function(e) {
+        // Ignore touch events on close button
+        if (e.target.closest('.close')) return;
+        
         const modal = document.querySelector('.modal[style*="display: block"]');
         if (!modal) return;
         touchStartX = e.touches[0].clientX;
     }, false);
 
     document.addEventListener('touchmove', function(e) {
+        // Ignore touch events on close button
+        if (e.target.closest('.close')) return;
+        
         const modal = document.querySelector('.modal[style*="display: block"]');
         if (!modal) return;
         touchEndX = e.touches[0].clientX;
     }, false);
 
     document.addEventListener('touchend', function(e) {
+        // Ignore touch events on close button
+        if (e.target.closest('.close')) return;
+        
         const modal = document.querySelector('.modal[style*="display: block"]');
         if (!modal) return;
         
@@ -915,7 +924,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-      
+        // Reset values
         touchStartX = 0;
         touchEndX = 0;
     }, false);
