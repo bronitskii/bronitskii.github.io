@@ -311,7 +311,7 @@ window.addEventListener('load', function () {
 
 	$main_articles.each(function () {
 		var $this = $(this);
-		$('<div class="close">	</div>')
+		$('<div class="close">Close</div>')
 			.appendTo($this)
 			.on("click", function () {
 				location.hash = "";
@@ -375,66 +375,127 @@ galleryImgs.forEach((img) => {
 	img.addEventListener("click", () => {
 	});
 });
+
+function openModal(modalId, imgSrc) {
+	const modal = document.getElementById(modalId);
+	const modalImg = modal.querySelector(".modal-content img");
+	const modalCaption = modal.querySelector(".caption");
+	const loadingIndicator = modal.querySelector(".loading-indicator");
+
+	modal.style.display = "block";
+	setTimeout(() => {
+		modal.style.transform = "scale(1)";
+		modal.style.opacity = 1;
+	}, 10);
+
+	modal.addEventListener('click', (e) => {
+		e.stopPropagation();
+	});
+
+	modalCaption.style.display = "none";
+	modalImg.style.display = "none";
+	loadingIndicator.style.display = "flex";
+
+	const newImg = new Image();
+	newImg.onload = function () {
+		loadingIndicator.style.display = "none";
+		modalImg.src = imgSrc;
+		modalImg.style.display = "block";
+		modalCaption.style.display = "block";
+	};
+	newImg.src = imgSrc;
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const modalContent = modal.querySelector('.modal-content');
+    const modalImg = modalContent.querySelector('img');
+    
+    // Create wrapper for glitch effect
+    const wrapper = document.createElement('div');
+    wrapper.className = 'modal-image-wrapper';
+    modalImg.parentNode.insertBefore(wrapper, modalImg);
+    wrapper.appendChild(modalImg);
+    
+    // Add glitch class to trigger animation
+    wrapper.classList.add('glitch-close');
+    
+    // Start fade out after glitch animation
+    setTimeout(() => {
+        modal.style.transform = "scale(0.95)";
+        modal.style.opacity = 0;
+        
+        // Clean up and hide modal after animations
+        setTimeout(() => {
+            modal.style.display = "none";
+            wrapper.classList.remove('glitch-close');
+            modalImg.remove();
+            wrapper.parentNode.appendChild(modalImg);
+            wrapper.remove();
+        }, 300);
+    }, 400);
+}
+
 class TextScramble {
-    constructor(el) {
-        this.el = el;
-        this.chars = "!<>-_/[]{}%&*-=___+-#$>@/";
-        this.update = this.update.bind(this);
-    }
-    setText(newText) {
-        const oldText = this.el.innerText;
-        const length = Math.max(oldText.length, newText.length);
-        const promise = new Promise((resolve) => (this.resolve = resolve));
-        this.queue = [];
-        for (let i = 0; i < length; i++) {
-            const from = oldText[i] || "";
-            const to = newText[i] || "";
-            const start = Math.floor(Math.random() * 40);
-            const end = start + Math.floor(Math.random() * 40);
-            this.queue.push({ from, to, start, end });
-        }
-        cancelAnimationFrame(this.frameRequest);
-        this.frame = 0;
-        this.update();
-        return promise;
-    }
+	constructor(el) {
+		this.el = el;
+		this.chars = "!<>-_\\/[]{}ß%&*-=___+-≈#$>@/";
+		this.update = this.update.bind(this);
+	}
 
-    update() {
-        let output = "";
-        let complete = 0;
-        for (let i = 0, n = this.queue.length; i < n; i++) {
-            let { from, to, start, end, char } = this.queue[i];
-            if (this.frame >= end) {
-                complete++;
-                output += to;
-            } else if (this.frame >= start) {
-                if (!char || Math.random() < 0.28) {
-                    char = this.randomChar();
-                    this.queue[i].char = char;
-                }
-                output += `<span class="dud">${char}</span>`;
-            } else {
-                output += from;
-            }
-        }
-        this.el.innerHTML = output;
-        if (complete === this.queue.length) {
-            this.resolve();
-        } else {
-            this.frameRequest = requestAnimationFrame(this.update);
-            this.frame++;
-        }
-    }
+	setText(newText) {
+		const oldText = this.el.innerText;
+		const length = Math.max(oldText.length, newText.length);
+		const promise = new Promise((resolve) => (this.resolve = resolve));
+		this.queue = [];
+		for (let i = 0; i < length; i++) {
+			const from = oldText[i] || "";
+			const to = newText[i] || "";
+			const start = Math.floor(Math.random() * 40);
+			const end = start + Math.floor(Math.random() * 40);
+			this.queue.push({ from, to, start, end });
+		}
+		cancelAnimationFrame(this.frameRequest);
+		this.frame = 0;
+		this.update();
+		return promise;
+	}
 
-    randomChar() {
-        return this.chars[Math.floor(Math.random() * this.chars.length)];
-    }
+	update() {
+		let output = "";
+		let complete = 0;
+		for (let i = 0, n = this.queue.length; i < n; i++) {
+			let { from, to, start, end, char } = this.queue[i];
+			if (this.frame >= end) {
+				complete++;
+				output += to;
+			} else if (this.frame >= start) {
+				if (!char || Math.random() < 0.28) {
+					char = this.randomChar();
+					this.queue[i].char = char;
+				}
+				output += `<span class="dud">${char}</span>`;
+			} else {
+				output += from;
+			}
+		}
+		this.el.innerHTML = output;
+		if (complete === this.queue.length) {
+			this.resolve();
+		} else {
+			this.frameRequest = requestAnimationFrame(this.update);
+			this.frame++;
+		}
+	}
+
+	randomChar() {
+		return this.chars[Math.floor(Math.random() * this.chars.length)];
+	}
 }
 
 const phrases = [
-    "#Professional Interpreter",
-    "#InfoSec Enthusiast",
-	"#IT Support Technician",
+	"Professional Interpreter",
+	"Graphic Design Creator and InfoSec Enthusiast.",
 ];
 
 const el = document.querySelector(".stext");
@@ -442,10 +503,10 @@ const fx = new TextScramble(el);
 
 let counter = 0;
 const next = () => {
-    fx.setText(phrases[counter]).then(() => {
-        setTimeout(next, 2500);
-    });
-    counter = (counter + 1) % phrases.length;
+	fx.setText(phrases[counter]).then(() => {
+		setTimeout(next, 2500);
+	});
+	counter = (counter + 1) % phrases.length;
 };
 
 next();
@@ -456,22 +517,22 @@ var ctx = canvas.getContext("2d");
 var minDistance = 20;
 
 window.onload = function () {
-    var blurAmount = 10;
-    var brightnessAmount = 0;
-    var intervalId = setInterval(function () {
-        if (blurAmount < 0.1 && brightnessAmount > 50) {
-            clearInterval(intervalId);
-        } else {
-            blurAmount -= 0.1;
-            brightnessAmount += 0.5;
-            canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
-        }
-    }, 30);
+	var blurAmount = 10;
+	var brightnessAmount = 0;
+	var intervalId = setInterval(function () {
+		if (blurAmount < 0.1 && brightnessAmount > 50) {
+			clearInterval(intervalId);
+		} else {
+			blurAmount -= 0.1;
+			brightnessAmount += 0.5;
+			canvas.style.filter = `brightness(${brightnessAmount}%) blur(${blurAmount}px)`;
+		}
+	}, 30);
 };
 
 function setCanvasDimensions() {
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
 }
 
 setCanvasDimensions();
@@ -482,54 +543,54 @@ var font_size = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(web
 ctx.font = font_size + "px Consolas, monospace";
 
 function intersect(x1, y1, x2, y2) {
-    var distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    return distance < minDistance;
+	var distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+	return distance < minDistance;
 }
 
 function getRandomPosition() {
-    var x, y, intersecting;
-    do {
-        x = Math.floor(Math.random() * canvas.width);
-        y = Math.floor(Math.random() * canvas.height);
-        intersecting = false;
-        for (var i = 0; i < characters.length; i++) {
-            if (intersect(x, y, characters[i].x, characters[i].y)) {
-                intersecting = true;
-                break;
-            }
-        }
-    } while (intersecting);
-    return { x: x, y: y };
+	var x, y, intersecting;
+	do {
+		x = Math.floor(Math.random() * canvas.width);
+		y = Math.floor(Math.random() * canvas.height);
+		intersecting = false;
+		for (var i = 0; i < characters.length; i++) {
+			if (intersect(x, y, characters[i].x, characters[i].y)) {
+				intersecting = true;
+				break;
+			}
+		}
+	} while (intersecting);
+	return { x: x, y: y };
 }
 
 function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.01)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "rgba(0, 0, 0, 0.01)";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#45717b";
-    ctx.font = font_size + "px Arial";
+	ctx.fillStyle = "#45717b";
+	ctx.font = font_size + "px Arial";
 
-    var text, opacity, position;
-    for (var i = 0; i < 10; i++) {
-        text = Math.random() < 0.5 ? "0" : "1";
-        position = getRandomPosition();
-        opacity = 0;
-        ctx.globalAlpha = opacity;
-        characters.push({ x: position.x, y: position.y });
-        (function (x, y, text, opacity) {
-            setTimeout(function () {
-                var fadeInterval = setInterval(function () {
-                    if (opacity >= 0.481) {
-                        clearInterval(fadeInterval);
-                    } else {
-                        opacity += 0.95;
-                        ctx.globalAlpha = opacity;
-                        ctx.fillText(text, x, y);
-                    }
-                }, 50);
-            }, Math.random() * 2000);
-        })(position.x, position.y, text, opacity);
-    }
+	var text, opacity, position;
+	for (var i = 0; i < 10; i++) {
+		text = Math.random() < 0.5 ? "0" : "1";
+		position = getRandomPosition();
+		opacity = 0;
+		ctx.globalAlpha = opacity;
+		characters.push({ x: position.x, y: position.y });
+		(function (x, y, text, opacity) {
+			setTimeout(function () {
+				var fadeInterval = setInterval(function () {
+					if (opacity >= 0.481) {
+						clearInterval(fadeInterval);
+					} else {
+						opacity += 0.95;
+						ctx.globalAlpha = opacity;
+						ctx.fillText(text, x, y);
+					}
+				}, 50);
+			}, Math.random() * 2000);
+		})(position.x, position.y, text, opacity);
+	}
 }
 
 var intervalTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 500 : 300;
@@ -537,7 +598,7 @@ var intervalId = setInterval(draw, intervalTime);
 
 var timeoutTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 6000 : 6000;
 setTimeout(function () {
-    clearInterval(intervalId);
+	clearInterval(intervalId);
 }, timeoutTime);
 
 var galleryImages = document.querySelectorAll('.gallery-item img');
@@ -545,396 +606,56 @@ var imageModals = document.querySelectorAll('[id^="myModal"]');
 var closeButtons = document.querySelectorAll('[id^="myModal"] .close');
 
 galleryImages.forEach(function (img, index) {
-    img.onclick = function () {
-        var modal = document.getElementById('myModal' + (index + 1));
-        if (modal) {
-            const loadingText = modal.querySelector('.loading-text');
-            const imgSrc = img.getAttribute('data-imgsrc');
+	img.onclick = function () {
+		var modal = document.getElementById('myModal' + (index + 1));
+		if (modal) {
+			const loadingText = modal.querySelector('.loading-text');
+			const imgSrc = img.getAttribute('data-imgsrc');
 
-            loadingText.innerHTML = '[v:~]$ ';
+			loadingText.innerHTML = '[v:~]$ ';
 
-            async function typeWriterEffect(text) {
-                for (let i = 0; i < text.length; i++) {
-                    if (text[i] === ' ') {
-                        loadingText.innerHTML += '&nbsp;';
-                    } else {
-                        loadingText.innerText += text[i];
-                    }
-                    await new Promise(resolve => setTimeout(resolve, Math.random() * 50));
-                }
-            }
+			async function typeWriterEffect(text) {
+				for (let i = 0; i < text.length; i++) {
+					if (text[i] === ' ') {
+						loadingText.innerHTML += '&nbsp;';
+					} else {
+						loadingText.innerText += text[i];
+					}
+					await new Promise(resolve => setTimeout(resolve, Math.random() * 50));
+				}
+			}
 
-            typeWriterEffect("curl -LO " + new URL(window.location.href).origin + '/' + imgSrc);
-            openModal('myModal' + (index + 1), this.getAttribute('data-imgsrc'));
-        }
-    }
+			typeWriterEffect("curl -LO " + new URL(window.location.href).origin + '/' + imgSrc);
+			openModal('myModal' + (index + 1), this.getAttribute('data-imgsrc'));
+		}
+	}
 });
 
 closeButtons.forEach(function (btn) {
-    // Single handler for both click and touch
-    function handleClose(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const modal = btn.closest('[id^="myModal"]');
-        if (modal) {
-            closeModal(modal.id);
-        }
-    }
-
-    // Use touchend for touch devices
-    btn.addEventListener('touchend', handleClose, { passive: false });
-    // Use click for non-touch devices
-    btn.addEventListener('click', handleClose);
-
-    // Prevent any touch move events on the close button
-    btn.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false });
+	btn.onclick = function (event) {
+		event.stopPropagation();
+		var modal = this.closest('[id^="myModal"]');
+		if (modal) {
+			closeModal(modal.id);
+		}
+	}
 });
 
 function updateProgressBar(article) {
-    const progressBar = article.querySelector('.progress-bar');
-    if (!progressBar) return;
+	const progressBar = article.querySelector('.progress-bar');
+	if (!progressBar) return;
 
-    const scrollElement = article.querySelector('.scrollbar, .container');
-    const scrollPosition = scrollElement.scrollTop;
-    const scrollHeight = scrollElement.scrollHeight;
-    const clientHeight = scrollElement.clientHeight;
+	const scrollElement = article.querySelector('.scrollbar, .container');
+	const scrollPosition = scrollElement.scrollTop;
+	const scrollHeight = scrollElement.scrollHeight;
+	const clientHeight = scrollElement.clientHeight;
 
-    const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
-    progressBar.style.width = scrolled + '%';
+	const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
+	progressBar.style.width = scrolled + '%';
 }
 
 document.querySelectorAll('#more .scrollbar, #gallery .container').forEach(element => {
-    element.addEventListener('scroll', () => {
-        updateProgressBar(element.closest('article'));
-    });
-}); 
-document.addEventListener('keydown', (e) => {
-	const activeModal = document.querySelector('.modal[style*="display: block"]');
-	if (!activeModal) return;
-	
-	if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
-		e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-		e.preventDefault();
-	}
-	
-	const currentIndex = parseInt(activeModal.id.replace('myModal', ''));
-	const totalImages = document.querySelectorAll('.gallery-item').length;
-	
-	if (e.key === 'ArrowLeft' && !isNavigating) {
-		navigateModal('prev', currentIndex, totalImages);
-	} else if (e.key === 'ArrowRight' && !isNavigating) {
-			navigateModal('next', currentIndex, totalImages);
-	}
-});
-
-let isNavigating = false;
-
-function loadImage(src) {
-	return new Promise((resolve, reject) => {
-		const img = new Image();
-		
-		img.onload = () => {
-			img.alt = '';
-			img.title = '';
-			img.setAttribute('aria-hidden', 'true');
-			
-			img.setAttribute('role', 'presentation');
-			img.style.fontSize = '0';
-			img.style.color = 'transparent';
-			img.style.userSelect = 'none';
-			img.draggable = false;
-			resolve(img);
-		};
-		
-		img.onerror = () => {
-			reject(new Error(`Failed to load image: ${src}`));
-		};
-		
-		img.src = src;
+	element.addEventListener('scroll', () => {
+		updateProgressBar(element.closest('article'));
 	});
-}
-
-function openModal(modalId, imgSrc) {
-    const modal = document.getElementById(modalId);
-    const modalContent = modal.querySelector(".modal-content");
-    const loadingIndicator = modal.querySelector(".loading-indicator");
-    const caption = modal.querySelector(".caption");
-    
-    // Show loading indicator
-    loadingIndicator.style.display = "flex";
-    const loadingText = loadingIndicator.querySelector('.loading-text');
-    
-    // Clear existing content
-    const oldWrapper = modalContent.querySelector('.modal-image-wrapper');
-    if (oldWrapper) oldWrapper.remove();
-    
-    const oldCounter = modalContent.querySelector('.modal-counter');
-    if (oldCounter) oldCounter.remove();
-    
-    // Create image wrapper
-    const imageWrapper = document.createElement('div');
-    imageWrapper.className = 'modal-image-wrapper';
-    modalContent.insertBefore(imageWrapper, caption);
-    
-    // Setup counter
-    const currentIndex = parseInt(modalId.replace('myModal', ''));
-    const totalImages = document.querySelectorAll('.gallery-item').length;
-    const counter = document.createElement('div');
-    counter.className = 'modal-counter';
-    counter.textContent = `${currentIndex} of ${totalImages}`;
-    modalContent.insertBefore(counter, caption);
-    
-    // Show modal
-    modal.style.display = "block";
-    setTimeout(() => {
-        modal.style.transform = "scale(1)";
-        modal.style.opacity = 1;
-    }, 10);
-
-    caption.style.display = "none";
-    
-    // Load images
-    const prevIndex = currentIndex === 1 ? totalImages : currentIndex - 1;
-    const nextIndex = currentIndex === totalImages ? 1 : currentIndex + 1;
-    
-    const prevImgSrc = document.querySelector(`.gallery-item:nth-child(${prevIndex}) img`).getAttribute('data-imgsrc');
-    const nextImgSrc = document.querySelector(`.gallery-item:nth-child(${nextIndex}) img`).getAttribute('data-imgsrc');
-
-    // Type loading text
-    loadingText.innerHTML = '[v:~]$ ';
-    let i = 0;
-    const curlCommand = "curl -LO " + new URL(window.location.href).origin + '/' + imgSrc;
-    const typeInterval = setInterval(() => {
-        if (i < curlCommand.length) {
-            loadingText.innerHTML += curlCommand[i] === ' ' ? '&nbsp;' : curlCommand[i];
-            i++;
-        } else {
-            clearInterval(typeInterval);
-        }
-    }, 50);
-
-    // Load images
-    Promise.all([
-        loadImage(prevImgSrc),
-        loadImage(imgSrc),
-        loadImage(nextImgSrc)
-    ]).then(([prevImg, currentImg, nextImg]) => {
-        clearInterval(typeInterval);
-        loadingIndicator.style.display = "none";
-        
-        [prevImg, currentImg, nextImg].forEach(img => {
-            img.style.maxWidth = '90%';
-            img.style.maxHeight = '85vh';
-            img.style.objectFit = 'contain';
-        });
-        
-        prevImg.className = 'modal-image prev';
-        currentImg.className = 'modal-image current';
-        nextImg.className = 'modal-image next';
-        
-        imageWrapper.appendChild(prevImg);
-        imageWrapper.appendChild(currentImg);
-        imageWrapper.appendChild(nextImg);
-        
-        caption.style.display = "block";
-        
-        // Add navigation buttons
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'modal-nav prev';
-        prevBtn.innerHTML = '<i class="fa fa-angle-left"></i>';
-        
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'modal-nav next';
-        nextBtn.innerHTML = '<i class="fa fa-angle-right"></i>';
-        
-        modalContent.appendChild(prevBtn);
-        modalContent.appendChild(nextBtn);
-        
-        prevBtn.onclick = (e) => {
-            e.stopPropagation();
-            if (!isNavigating) navigateModal('prev', currentIndex, totalImages);
-        };
-        
-        nextBtn.onclick = (e) => {
-            e.stopPropagation();
-            if (!isNavigating) navigateModal('next', currentIndex, totalImages);
-        };
-    }).catch(error => {
-        console.error('Error loading images:', error);
-        loadingIndicator.style.display = "none";
-        isNavigating = false;
-    });
-
-    modal.addEventListener('click', e => e.stopPropagation());
-    
-    const closeBtn = modal.querySelector('.close');
-    closeBtn.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        closeModal(modalId);
-    };
-
-    document.body.style.overflow = 'hidden';
-}
-
-function createFadeTransition() {
-	const transition = document.createElement('div');
-	transition.className = 'matrix-transition';
-	document.body.appendChild(transition);
-	return transition;
-}
-
-function navigateModal(direction, currentIndex, totalImages) {
-	if (isNavigating) return;
-	isNavigating = true;
-	
-	const newIndex = direction === 'next' 
-		? (currentIndex === totalImages ? 1 : currentIndex + 1)
-		: (currentIndex === 1 ? totalImages : currentIndex - 1);
-		
-	const modalId = `myModal${newIndex}`;
-	const newImgSrc = document.querySelector(`.gallery-item:nth-child(${newIndex}) img`).getAttribute('data-imgsrc');
-	
-	const oldModal = document.getElementById(`myModal${currentIndex}`);
-	
-	const fadeTransition = createFadeTransition();
-	setTimeout(() => {
-		fadeTransition.classList.add('active');
-	}, 0);
-	
-	loadImage(newImgSrc)
-		.then(() => {
-			setTimeout(() => {
-				openModal(modalId, newImgSrc);
-				if (oldModal) {
-					oldModal.style.transform = "scale(0.95)";
-					oldModal.style.opacity = 0;
-					setTimeout(() => {
-						oldModal.style.display = "none";
-						fadeTransition.classList.remove('active');
-						setTimeout(() => {
-							fadeTransition.remove();
-							isNavigating = false;
-						}, 300);
-					}, 300);
-				}
-			}, 200);
-		})
-		.catch(() => {
-			fadeTransition.remove();
-			isNavigating = false;
-		});
-}
-
-function closeModal(modalId) {
-	const modal = document.getElementById(modalId);
-	if (!modal) return;
-	
-	modal.style.transform = "scale(0.95)";
-	modal.style.opacity = 0;
-	
-	setTimeout(() => {
-		modal.style.display = "none";
-		document.body.style.overflow = '';
-		isNavigating = false;
-	}, 300);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-	const progressContainer = document.querySelector('.progress-container');
-	const progressBar = document.querySelector('.progress-bar');
-	
-	if (progressContainer && progressBar) {
-		window.addEventListener('scroll', function() {
-			if (document.querySelector('.modal[style*="display: block"]')) return;
-			
-			const windowHeight = window.innerHeight;
-			const documentHeight = Math.max(
-				document.body.scrollHeight,
-				document.body.offsetHeight,
-				document.documentElement.clientHeight,
-				document.documentElement.scrollHeight,
-				document.documentElement.offsetHeight
-			);
-			const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-			
-			const scrolled = (scrollTop / (documentHeight - windowHeight)) * 100;
-			progressBar.style.width = scrolled + '%';
-		});
-	}
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const gpgLink = document.querySelector('.gpg-key');
-    const gpgText = document.querySelector('.gpg-text');
-    const scrambleText = "Download my Public GPG key to send me an encrypted message.";
-    let fx;
-
-    gpgLink.addEventListener('mouseenter', function() {
-        if (!fx) {
-            fx = new TextScramble(gpgText);
-        }
-        fx.setText(scrambleText);
-    });
-
-    gpgLink.addEventListener('mouseleave', function() {
-        if (fx) {
-            fx.setText("GPG.pub");
-        }
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const minSwipeDistance = 50; 
-
-    document.addEventListener('touchstart', function(e) {
-        // Ignore touch events on close button
-        if (e.target.closest('.close')) return;
-        
-        const modal = document.querySelector('.modal[style*="display: block"]');
-        if (!modal) return;
-        touchStartX = e.touches[0].clientX;
-    }, false);
-
-    document.addEventListener('touchmove', function(e) {
-        // Ignore touch events on close button
-        if (e.target.closest('.close')) return;
-        
-        const modal = document.querySelector('.modal[style*="display: block"]');
-        if (!modal) return;
-        touchEndX = e.touches[0].clientX;
-    }, false);
-
-    document.addEventListener('touchend', function(e) {
-        // Ignore touch events on close button
-        if (e.target.closest('.close')) return;
-        
-        const modal = document.querySelector('.modal[style*="display: block"]');
-        if (!modal) return;
-        
-        const swipeDistance = touchEndX - touchStartX;
-        const currentIndex = parseInt(modal.id.replace('myModal', ''));
-        const totalImages = document.querySelectorAll('.gallery-item').length;
-
-        if (Math.abs(swipeDistance) > minSwipeDistance) {
-            if (swipeDistance > 0 && !isNavigating) {
-                // Swipe right - go to previous
-                navigateModal('prev', currentIndex, totalImages);
-            } else if (swipeDistance < 0 && !isNavigating) {
-                // Swipe left - go to next
-                navigateModal('next', currentIndex, totalImages);
-            }
-        }
-
-        // Reset values
-        touchStartX = 0;
-        touchEndX = 0;
-    }, false);
 });
