@@ -658,148 +658,126 @@ function loadImage(src) {
 }
 
 function openModal(modalId, imgSrc) {
-	const modal = document.getElementById(modalId);
-	const modalContent = modal.querySelector(".modal-content");
-	const loadingIndicator = modal.querySelector(".loading-indicator");
-	const caption = modal.querySelector(".caption");
-	
-	// Show loading indicator and text first
-	loadingIndicator.style.display = "flex";
-	const loadingText = loadingIndicator.querySelector('.loading-text');
-	loadingText.innerHTML = '[v:~]$ ';
-	
-	async function typeWriterEffect(text) {
-		for (let i = 0; i < text.length; i++) {
-			if (text[i] === ' ') {
-				loadingText.innerHTML += '&nbsp;';
-			} else {
-				loadingText.innerText += text[i];
-			}
-			await new Promise(resolve => setTimeout(resolve, Math.random() * 50));
-		}
-	}
-	
-	// Start typing effect immediately
-	typeWriterEffect("curl -LO " + new URL(window.location.href).origin + '/' + imgSrc);
-	
-	// Clear existing content
-	const oldWrapper = modalContent.querySelector('.modal-image-wrapper');
-	if (oldWrapper) {
-		oldWrapper.remove();
-	}
-	
-	const oldCounter = modalContent.querySelector('.modal-counter');
-	if (oldCounter) {
-		oldCounter.remove();
-	}
-	
-	// Create image wrapper
-	const imageWrapper = document.createElement('div');
-	imageWrapper.className = 'modal-image-wrapper';
-	modalContent.insertBefore(imageWrapper, caption);
-	
-	
-	const currentIndex = parseInt(modalId.replace('myModal', ''));
-	const totalImages = document.querySelectorAll('.gallery-item').length;
-	const counter = document.createElement('div');
-	counter.className = 'modal-counter';
-	counter.textContent = `${currentIndex} of ${totalImages}`;
-	modalContent.insertBefore(counter, caption);
-	
-	
-	const prevBtn = document.createElement('button');
-	prevBtn.className = 'modal-nav prev';
-	prevBtn.innerHTML = '<i class="fa fa-angle-left"></i>';
-	
-	const nextBtn = document.createElement('button');
-	nextBtn.className = 'modal-nav next';
-	nextBtn.innerHTML = '<i class="fa fa-angle-right"></i>';
-	
-	modalContent.appendChild(prevBtn);
-	modalContent.appendChild(nextBtn);
-	
-	modal.style.display = "block";
-	setTimeout(() => {
-		modal.style.transform = "scale(1)";
-		modal.style.opacity = 1;
-	}, 10);
+    const modal = document.getElementById(modalId);
+    const modalContent = modal.querySelector(".modal-content");
+    const loadingIndicator = modal.querySelector(".loading-indicator");
+    const caption = modal.querySelector(".caption");
+    
+    // Show loading indicator
+    loadingIndicator.style.display = "flex";
+    const loadingText = loadingIndicator.querySelector('.loading-text');
+    
+    // Clear existing content
+    const oldWrapper = modalContent.querySelector('.modal-image-wrapper');
+    if (oldWrapper) oldWrapper.remove();
+    
+    const oldCounter = modalContent.querySelector('.modal-counter');
+    if (oldCounter) oldCounter.remove();
+    
+    // Create image wrapper
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'modal-image-wrapper';
+    modalContent.insertBefore(imageWrapper, caption);
+    
+    // Setup counter
+    const currentIndex = parseInt(modalId.replace('myModal', ''));
+    const totalImages = document.querySelectorAll('.gallery-item').length;
+    const counter = document.createElement('div');
+    counter.className = 'modal-counter';
+    counter.textContent = `${currentIndex} of ${totalImages}`;
+    modalContent.insertBefore(counter, caption);
+    
+    // Show modal
+    modal.style.display = "block";
+    setTimeout(() => {
+        modal.style.transform = "scale(1)";
+        modal.style.opacity = 1;
+    }, 10);
 
-	caption.style.display = "none";
-	loadingIndicator.style.display = "flex";
+    caption.style.display = "none";
+    
+    // Load images
+    const prevIndex = currentIndex === 1 ? totalImages : currentIndex - 1;
+    const nextIndex = currentIndex === totalImages ? 1 : currentIndex + 1;
+    
+    const prevImgSrc = document.querySelector(`.gallery-item:nth-child(${prevIndex}) img`).getAttribute('data-imgsrc');
+    const nextImgSrc = document.querySelector(`.gallery-item:nth-child(${nextIndex}) img`).getAttribute('data-imgsrc');
 
-	
-	const prevIndex = currentIndex === 1 ? totalImages : currentIndex - 1;
-	const nextIndex = currentIndex === totalImages ? 1 : currentIndex + 1;
-	
-	const prevImgSrc = document.querySelector(`.gallery-item:nth-child(${prevIndex}) img`).getAttribute('data-imgsrc');
-	const nextImgSrc = document.querySelector(`.gallery-item:nth-child(${nextIndex}) img`).getAttribute('data-imgsrc');
+    // Type loading text
+    loadingText.innerHTML = '[v:~]$ ';
+    let i = 0;
+    const curlCommand = "curl -LO " + new URL(window.location.href).origin + '/' + imgSrc;
+    const typeInterval = setInterval(() => {
+        if (i < curlCommand.length) {
+            loadingText.innerHTML += curlCommand[i] === ' ' ? '&nbsp;' : curlCommand[i];
+            i++;
+        } else {
+            clearInterval(typeInterval);
+        }
+    }, 50);
 
-	
-	Promise.all([
-		loadImage(prevImgSrc),
-		loadImage(imgSrc),
-		loadImage(nextImgSrc)
-	]).then(([prevImg, currentImg, nextImg]) => {
-		loadingIndicator.style.display = "none";
-		
-	
-		[prevImg, currentImg, nextImg].forEach(img => {
-			img.style.maxWidth = '90%';
-			img.style.maxHeight = '85vh';
-			img.style.objectFit = 'contain';
-		});
-		
-	
-		prevImg.className = 'modal-image prev';
-		currentImg.className = 'modal-image current';
-		
-		nextImg.className = 'modal-image next';
-		
-	
-		imageWrapper.appendChild(prevImg);
-		imageWrapper.appendChild(currentImg);
-		imageWrapper.appendChild(nextImg);
-		
-	
-		imageWrapper.offsetHeight;
-		
-		caption.style.display = "block";
-		
-	
-		prevBtn.onclick = (e) => {
-			e.stopPropagation();
-			if (!isNavigating) {
-				navigateModal('prev', currentIndex, totalImages);
-			}
-		};
-		
-		nextBtn.onclick = (e) => {
-			e.stopPropagation();
-			if (!isNavigating) {
-				navigateModal('next', currentIndex, totalImages);
-			}
-		};
-	}).catch(error => {
-		console.error('Error loading images:', error);
-		loadingIndicator.style.display = "none";
-		isNavigating = false;
-	});
+    // Load images
+    Promise.all([
+        loadImage(prevImgSrc),
+        loadImage(imgSrc),
+        loadImage(nextImgSrc)
+    ]).then(([prevImg, currentImg, nextImg]) => {
+        clearInterval(typeInterval);
+        loadingIndicator.style.display = "none";
+        
+        [prevImg, currentImg, nextImg].forEach(img => {
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '85vh';
+            img.style.objectFit = 'contain';
+        });
+        
+        prevImg.className = 'modal-image prev';
+        currentImg.className = 'modal-image current';
+        nextImg.className = 'modal-image next';
+        
+        imageWrapper.appendChild(prevImg);
+        imageWrapper.appendChild(currentImg);
+        imageWrapper.appendChild(nextImg);
+        
+        caption.style.display = "block";
+        
+        // Add navigation buttons
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'modal-nav prev';
+        prevBtn.innerHTML = '<i class="fa fa-angle-left"></i>';
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'modal-nav next';
+        nextBtn.innerHTML = '<i class="fa fa-angle-right"></i>';
+        
+        modalContent.appendChild(prevBtn);
+        modalContent.appendChild(nextBtn);
+        
+        prevBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (!isNavigating) navigateModal('prev', currentIndex, totalImages);
+        };
+        
+        nextBtn.onclick = (e) => {
+            e.stopPropagation();
+            if (!isNavigating) navigateModal('next', currentIndex, totalImages);
+        };
+    }).catch(error => {
+        console.error('Error loading images:', error);
+        loadingIndicator.style.display = "none";
+        isNavigating = false;
+    });
 
-	
-	modal.addEventListener('click', (e) => {
-		e.stopPropagation();
-	});
+    modal.addEventListener('click', e => e.stopPropagation());
+    
+    const closeBtn = modal.querySelector('.close');
+    closeBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal(modalId);
+    };
 
-	
-	const closeBtn = modal.querySelector('.close');
-	closeBtn.onclick = function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		closeModal(modalId);
-	};
-
-	
-	document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 }
 
 function createFadeTransition() {
