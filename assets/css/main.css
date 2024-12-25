@@ -822,6 +822,7 @@ body.is-preload #header .content .inner {
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
 }
 #main article .close:before {
   display: none;
@@ -1101,6 +1102,22 @@ body.is-preload #header .content .inner {
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
+}
+
+@media only screen and (max-width: 700px) {
+  .close {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    font-size: 30px;
+    padding: 15px;
+    min-width: 50px;
+    min-height: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 5px;
+  }
 }
 .close:hover {
   color: #d53b3b;

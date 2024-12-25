@@ -571,33 +571,26 @@ galleryImages.forEach(function (img, index) {
 });
 
 closeButtons.forEach(function (btn) {
-    btn.addEventListener('touchstart', function(e) {
+    // Single handler for both click and touch
+    function handleClose(e) {
         e.preventDefault();
         e.stopPropagation();
-    }, { passive: false });
-
-    btn.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false });
-
-    btn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var modal = this.closest('[id^="myModal"]');
-        if (modal) {
-            closeModal(modal.id);
-        }
-    }, { passive: false });
-
-    btn.onclick = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        var modal = this.closest('[id^="myModal"]');
+        const modal = btn.closest('[id^="myModal"]');
         if (modal) {
             closeModal(modal.id);
         }
     }
+
+    // Use touchend for touch devices
+    btn.addEventListener('touchend', handleClose, { passive: false });
+    // Use click for non-touch devices
+    btn.addEventListener('click', handleClose);
+
+    // Prevent any touch move events on the close button
+    btn.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }, { passive: false });
 });
 
 function updateProgressBar(article) {
