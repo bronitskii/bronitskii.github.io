@@ -571,7 +571,27 @@ galleryImages.forEach(function (img, index) {
 });
 
 closeButtons.forEach(function (btn) {
+    btn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }, { passive: false });
+
+    btn.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }, { passive: false });
+
+    btn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var modal = this.closest('[id^="myModal"]');
+        if (modal) {
+            closeModal(modal.id);
+        }
+    }, { passive: false });
+
     btn.onclick = function (event) {
+        event.preventDefault();
         event.stopPropagation();
         var modal = this.closest('[id^="myModal"]');
         if (modal) {
