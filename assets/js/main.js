@@ -663,19 +663,37 @@ function openModal(modalId, imgSrc) {
 	const loadingIndicator = modal.querySelector(".loading-indicator");
 	const caption = modal.querySelector(".caption");
 	
+	// Show loading indicator and text first
+	loadingIndicator.style.display = "flex";
+	const loadingText = loadingIndicator.querySelector('.loading-text');
+	loadingText.innerHTML = '[v:~]$ ';
 	
+	async function typeWriterEffect(text) {
+		for (let i = 0; i < text.length; i++) {
+			if (text[i] === ' ') {
+				loadingText.innerHTML += '&nbsp;';
+			} else {
+				loadingText.innerText += text[i];
+			}
+			await new Promise(resolve => setTimeout(resolve, Math.random() * 50));
+		}
+	}
+	
+	// Start typing effect immediately
+	typeWriterEffect("curl -LO " + new URL(window.location.href).origin + '/' + imgSrc);
+	
+	// Clear existing content
 	const oldWrapper = modalContent.querySelector('.modal-image-wrapper');
 	if (oldWrapper) {
 		oldWrapper.remove();
 	}
-	
 	
 	const oldCounter = modalContent.querySelector('.modal-counter');
 	if (oldCounter) {
 		oldCounter.remove();
 	}
 	
-	
+	// Create image wrapper
 	const imageWrapper = document.createElement('div');
 	imageWrapper.className = 'modal-image-wrapper';
 	modalContent.insertBefore(imageWrapper, caption);

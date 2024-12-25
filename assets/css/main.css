@@ -1037,6 +1037,7 @@ body.is-preload #header .content .inner {
   left: 50%;
   transform-origin: center center;
   transform: translate(-50%, -5%);
+  box-shadow: 0 0 1px #d53b3b, 0 0 2px #d53b3b;
 }
 /* Navigation arrows */
 .modal-nav {
