@@ -12,7 +12,7 @@ window.addEventListener('load', function () {
 		"[v:~]$ ./p4y1O4d.sh",
 		"[PAYLOAD] Downloading payload...",
 		"[PAYLOAD] Bootstrapping...",
-		"[PAYLOAD] Welcome, V",
+		"[PAYLOAD] SUCCESS! Welcome, V..",
 		"[v:~]$ lynx index.html",
 	];
 
@@ -494,6 +494,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 var minDistance = 20;
+var maxCharacters = 500; // Limit the number of characters on the canvas
 
 window.onload = function () {
 	var blurAmount = 10;
@@ -533,7 +534,7 @@ function getRandomPosition() {
 		y = Math.floor(Math.random() * canvas.height);
 		intersecting = false;
 		for (var i = 0; i < characters.length; i++) {
-			if (intersect(x, y, characters[i].x, characters[i].y)) {
+			if (intersect(x, y, characters[i].position.x, characters[i].position.y)) {
 				intersecting = true;
 				break;
 			}
@@ -543,42 +544,42 @@ function getRandomPosition() {
 }
 
 function draw() {
-	ctx.fillStyle = "rgba(0, 0, 0, 0.01)";
+	ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; // Increased opacity for faster fading
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-	ctx.fillStyle = "#45717b";
+	ctx.fillStyle = "#00AA00";
 	ctx.font = font_size + "px Arial";
+
+
+	if (characters.length > maxCharacters) {
+		characters.splice(0, characters.length - maxCharacters);
+	}
 
 	var text, opacity, position;
 	for (var i = 0; i < 10; i++) {
 		text = Math.random() < 0.5 ? "0" : "1";
 		position = getRandomPosition();
 		opacity = 0;
-		ctx.globalAlpha = opacity;
-		characters.push({ x: position.x, y: position.y });
-		(function (x, y, text, opacity) {
+		characters.push({ position: { x: position.x, y: position.y }, opacity: opacity, text: text });
+
+		(function (charIndex) {
 			setTimeout(function () {
 				var fadeInterval = setInterval(function () {
-					if (opacity >= 0.481) {
+					if (characters[charIndex] && characters[charIndex].opacity >= 0.481) {
 						clearInterval(fadeInterval);
-					} else {
-						opacity += 0.95;
-						ctx.globalAlpha = opacity;
-						ctx.fillText(text, x, y);
+					} else if (characters[charIndex]) {
+						characters[charIndex].opacity += 0.95;
+						ctx.globalAlpha = characters[charIndex].opacity;
+						ctx.fillText(characters[charIndex].text, characters[charIndex].position.x, characters[charIndex].position.y);
 					}
 				}, 50);
 			}, Math.random() * 2000);
-		})(position.x, position.y, text, opacity);
+		})(characters.length - 1);
 	}
 }
 
 var intervalTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 500 : 300;
 var intervalId = setInterval(draw, intervalTime);
-
-var timeoutTime = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 6000 : 6000;
-setTimeout(function () {
-	clearInterval(intervalId);
-}, timeoutTime);
 
 var galleryImages = document.querySelectorAll('.gallery-item img');
 var imageModals = document.querySelectorAll('[id^="myModal"]');
@@ -596,7 +597,7 @@ galleryImages.forEach(function (img, index) {
 			async function typeWriterEffect(text) {
 				for (let i = 0; i < text.length; i++) {
 					if (text[i] === ' ') {
-						loadingText.innerHTML += '&nbsp;';
+						loadingText.innerHTML += ' ';
 					} else {
 						loadingText.innerText += text[i];
 					}
