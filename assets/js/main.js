@@ -60,7 +60,7 @@ window.addEventListener('load', function () {
 		const span = document.createElement('span');
 		span.textContent = char;
 		if (lines[currentLine].startsWith('[PAYLOAD]')) {
-			span.style.color = '#d53b3b';
+			span.style.color = '#d83030fc';
 		}
 		cursor.remove();
 		currentLineElem.appendChild(span);
@@ -496,7 +496,7 @@ window.addEventListener('load', function () {
 	var animationRunning = true;
 	var lastFrameTime = 0;
 	// Reduce frame interval for smoother animation
-	var frameInterval = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 150 : 70;
+	var frameInterval = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 180 : 90;
 	var maxCharacters = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) ? 40 : 120;
 
 	function setCanvasDimensions() {
@@ -577,9 +577,12 @@ window.addEventListener('load', function () {
 		if (deltaTime >= frameInterval) {
 			lastFrameTime = timestamp;
 
-			// Clear canvas with slight trail effect (more transparent for smoother trails)
-			ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+			// Clear canvas with slightly more visible trail effect
+			ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
 			ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+			// Pulse effect timing (creates a "throbbing" glow)
+			const pulseIntensity = Math.sin(timestamp * 0.003) * 0.3 + 0.7;
 
 			// Update and remove characters
 			for (var i = characters.length - 1; i >= 0; i--) {
@@ -590,7 +593,7 @@ window.addEventListener('load', function () {
 					if (char.opacity >= 1) {
 						char.opacity = 1;
 						char.state = 'visible';
-						char.timer = 5; // Very short display time (5 frames)
+						char.timer = 5; // Very short display time
 					}
 				} else if (char.state === 'visible') {
 					char.timer -= 1;
@@ -606,9 +609,33 @@ window.addEventListener('load', function () {
 					}
 				}
 
-				// Draw character with crisp rendering
-				ctx.fillStyle = `rgba(107, 245, 73, ${char.opacity})`;
+				// Create intense cyberpunk-style glow effect
+				if (char.state === 'fading_in') {
+					// First shadow - bright inner glow
+					ctx.shadowColor = 'rgba(255, 0, 0, 0.9)';
+					ctx.shadowBlur = (5 + pulseIntensity * 3) * char.opacity;
+
+					// Draw with bright core
+					ctx.fillStyle = `rgba(255, 30, 30, ${char.opacity})`;
+				} else if (char.state === 'visible') {
+					// Multi-layered glow effect for visible characters
+					ctx.shadowColor = `rgba(255, 30, 30, ${0.7 * pulseIntensity})`;
+					ctx.shadowBlur = 4 + pulseIntensity * 2;
+
+					// Brighter core for visibility
+					ctx.fillStyle = `rgba(255, 30, 30, ${char.opacity})`;
+				} else {
+					// Fading effect with subtle glow
+					ctx.shadowColor = `rgba(255, 30, 30, ${0.3 * char.opacity})`;
+					ctx.shadowBlur = 2 * char.opacity;
+					ctx.fillStyle = `rgba(216, 48, 48, ${char.opacity})`;
+				}
+
+				// Draw character with glow effect
 				ctx.fillText(char.text, char.x, char.y);
+
+				// Reset shadow to avoid performance impact
+				ctx.shadowBlur = 0;
 			}
 
 			// Add new characters more frequently

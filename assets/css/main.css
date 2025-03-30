@@ -53,7 +53,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 body:hover::-webkit-scrollbar-thumb {
-  background-color: #d53b3b;
+  background-color: #d83030fc;
 }
 
 article,
@@ -429,14 +429,17 @@ ul.icons li a {
   text-align: center;
   width: 3.25rem;
   margin: 0.4rem 0 0 0.25rem;
+  transition: color 0.3s ease;
 }
 
 ul.icons li a:hover {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
+  color: #d83030fc;
 }
 
 ul.icons li a:active {
-  background-color: rgba(255, 255, 255, 0.175);
+  color: #d83030fc;
+  background-color: transparent;
 }
 
 #canvas {
@@ -558,7 +561,7 @@ ul.icons li a:active {
   letter-spacing: 0.2rem;
   font-size: 0.8rem;
   line-height: 2;
-  color: #00AA00;
+  color: #d83030fc;
   margin: auto;
 }
 
@@ -614,12 +617,12 @@ ul.icons li a:active {
 
 #header nav ul li a:hover::before {
   content: ">";
-  color: #d53b3b;
+  color: #d83030fc;
 }
 
 #header nav ul li a:hover::after {
   content: "_";
-  color: #d53b3b;
+  color: #d83030fc;
   animation: blink 1s infinite;
 }
 
@@ -912,7 +915,7 @@ body.is-preload #header .content .inner {
 }
 
 .scrollbar:hover::-webkit-scrollbar-thumb {
-  background-color: #d53b3b;
+  background-color: #d83030fc;
 }
 
 @media screen and (max-width: 736px) {
@@ -946,10 +949,10 @@ body.is-preload #header .content .inner {
 }
 
 #main article .close:before {
-  -moz-transition: background-color 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s ease-in-out;
-  -ms-transition: background-color 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out;
+  -moz-transition: color 0.3s ease, background-color 0.2s ease-in-out;
+  -webkit-transition: color 0.3s ease, background-color 0.2s ease-in-out;
+  -ms-transition: color 0.3s ease, background-color 0.2s ease-in-out;
+  transition: color 0.3s ease, background-color 0.2s ease-in-out;
   content: "";
   display: block;
   position: absolute;
@@ -965,11 +968,13 @@ body.is-preload #header .content .inner {
 }
 
 #main article .close:hover:before {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20px' height='20px' viewBox='0 0 20 20' zoomAndPan='disable'%3E%3Cstyle%3Eline %7B stroke: %23d83030fc%3B stroke-width: 1.5%3B %7D%3C/style%3E%3Cline x1='2' y1='2' x2='18' y2='18' /%3E%3Cline x1='18' y1='2' x2='2' y2='18' /%3E%3C/svg%3E");
 }
 
 #main article .close:active:before {
-  background-color: rgba(255, 255, 255, 0.175);
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20px' height='20px' viewBox='0 0 20 20' zoomAndPan='disable'%3E%3Cstyle%3Eline %7B stroke: %23d83030fc%3B stroke-width: 2%3B %7D%3C/style%3E%3Cline x1='2' y1='2' x2='18' y2='18' /%3E%3Cline x1='18' y1='2' x2='2' y2='18' /%3E%3C/svg%3E");
 }
 
 @media screen and (max-width: 736px) {
@@ -1012,7 +1017,7 @@ body.is-preload #header .content .inner {
 }
 
 .container:hover::-webkit-scrollbar-thumb {
-  background-color: #d53b3b;
+  background-color: #d83030fc;
 }
 
 .row1 {
@@ -1172,7 +1177,7 @@ body.is-preload #header .content .inner {
 }
 
 .close:hover {
-  color: #d53b3b;
+  color: #d83030fc;
 }
 
 @media only screen and (max-width: 700px) {
@@ -1191,7 +1196,7 @@ body.is-preload #header .content .inner {
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.85);
-  color: #00AA00;
+  color: #d83030fc;
   padding: 1rem;
   text-align: center;
   font-family: monospace;
@@ -1231,7 +1236,7 @@ body.is-preload #header .content .inner {
   font-weight: 100;
   font-size: 0.9rem;
   letter-spacing: 0.2rem;
-  color: #d53b3b;
+  color: #d83030fc;
   font-family: monospace;
 }
 
@@ -1257,7 +1262,7 @@ body.is-preload #header .content .inner {
   width: 100%;
   -webkit-clip: rect(0, 0, 0, 0);
   clip: rect(0, 0, 0, 0);
-  background: #d53b3b;
+  background: #d83030fc;
   color: #000;
 }
 
@@ -1376,7 +1381,7 @@ body.is-preload #header .content .inner {
 }
 
 .breadcrumbs .text-cursor {
-  color: #d53b3b;
+  color: #d83030fc;
   animation: blink 1s infinite step-end;
 }
 
@@ -1458,7 +1463,7 @@ body.is-preload #header .content .inner {
   display: inline-block;
   width: 8px;
   height: 16px;
-  background: #d53b3b;
+  background: #d83030fc;
   animation: cursor-blink 1s infinite;
   vertical-align: middle;
   margin-left: 2px;
@@ -1498,7 +1503,7 @@ body.is-preload #header .content .inner {
 
 #more .scrollbar h3::before {
   content: "# ";
-  color: #d53b3b;
+  color: #d83030fc;
 }
 
 #more .scrollbar p {
@@ -1515,7 +1520,7 @@ body.is-preload #header .content .inner {
 
 #more .scrollbar p::before {
   content: ">";
-  color: #d53b3b;
+  color: #d83030fc;
   position: absolute;
   left: 0;
   top: 0.1rem;
@@ -1544,7 +1549,7 @@ body.is-preload #header .content .inner {
 
 .progress-bar {
   height: 100%;
-  background: #d53b3b;
+  background: #d83030fc;
   width: 0%;
   transition: width 0.1s ease;
   transform-origin: left;
