@@ -378,6 +378,7 @@ window.addEventListener('load', function () {
 		const modalImg = modal.querySelector(".modal-content img");
 		const modalCaption = modal.querySelector(".caption");
 		const loadingIndicator = modal.querySelector(".loading-indicator");
+		const canvas = document.getElementById("canvas");
 
 		modal.style.display = "block";
 		setTimeout(() => {
@@ -385,9 +386,25 @@ window.addEventListener('load', function () {
 			modal.style.opacity = 1;
 		}, 10);
 
-		modal.addEventListener('click', (e) => {
-			e.stopPropagation();
-		});
+		// Hide canvas animation when modal is open
+		if (canvas) {
+			canvas.style.display = "none";
+		}
+
+		// Close modal when clicking on the modal background (not on image)
+		modal.onclick = function(event) {
+			if (event.target === modal) {
+				closeModal(modalId);
+			}
+		};
+
+		// Prevent clicks on modal content from closing the modal
+		const modalContent = modal.querySelector(".modal-content");
+		if (modalContent) {
+			modalContent.onclick = function(event) {
+				event.stopPropagation();
+			};
+		}
 
 		modalCaption.style.display = "none";
 		modalImg.style.display = "none";
@@ -405,10 +422,17 @@ window.addEventListener('load', function () {
 
 	function closeModal(modalId) {
 		const modal = document.getElementById(modalId);
+		const canvas = document.getElementById("canvas");
+		
 		modal.style.transform = "scale(0.95)";
 		modal.style.opacity = 0;
 		setTimeout(() => {
 			modal.style.display = "none";
+			
+			// Show canvas animation again when modal is closed
+			if (canvas) {
+				canvas.style.display = "block";
+			}
 		}, 300);
 	}
 
