@@ -1,7 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 
 <html>
 
@@ -9,9 +6,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css"
     integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-  <title>Vladislav Bronitskii</title>
+  <title>vladislav bronitskii</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta vladislav="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta vladislav="referrer" content="no-referrer-when-downgrade">
   <link rel="stylesheet" href="assets/css/main.css" />
   <noscript>
     <link rel="stylesheet" href="assets/css/noscript.css" />
@@ -20,14 +19,17 @@
 
 <body class="is-preload">
   <div class="hacking-animation">
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+    <div class="boot-status">SYSTEM BOOT</div>
+    <div class="boot-progress-bar">
+      <div class="boot-progress-fill" id="boot-progress"></div>
+    </div>
     <pre class="hacking-animation__text"></pre>
   </div>
-  <!-- background logo -->
   <div class="bg-logo">
-    <img src="images/vblogo_bg.svg" alt="Vladislav Bronitskii" class="bg-logo">
+    <img src="images/vblogo_bg.svg" alt="vladislav bronitskii" class="bg-logo">
   </div>
-  <!-- background canvas -->
-  <canvas id="canvas" , style="position: absolute; top: 0; left: 0; z-index: -1;"></canvas>
 
 
   <style>
@@ -53,14 +55,12 @@
     }
   </style>
 
-  <!-- Wrapper -->
   <div id="wrapper">
 
-    <!-- Header -->
     <header id="header">
       <div class="content">
         <div class="inner">
-          <h1 style="margin-top: 1rem;">Vladislav_Bronitskii</h1>
+          <h1 style="margin-top: 1rem;">vladislav_bronitskii</h1>
           <div class="scramble">
             <div class="stext"></div>
           </div>
@@ -97,14 +97,8 @@
       </nav>
     </header>
 
-    <!-- 
-    MARK: Main 
-    -->
     <div id="main" style="display: none;">
 
-      <!-- 
-      MARK: More
-      -->
       <article id="more" style="display: none;" class="">
         <nav class="breadcrumbs">
           <div>
@@ -135,18 +129,21 @@
           </div>
           <h3 style="text-align: center;">Home Network:</h3>
           <p style="text-align: left; font-size: 13px; color: #d83030fc;">
-            Deployed and managed various self-hosted services: Vaultwarden, Uptime Kuma, personal budgeting,
-            shopping, and entertainment software <a href="https://status.bronitskii.work/status/homelab"
-              onmouseover="this.style.color='grey';" onmouseout="this.style.color='#00AA00';"
-              style="cursor: pointer; border-bottom: 0;">
-              -> Uptime status page.</a>
+<strong>Infrastructure &amp; Resilience Engineering:</strong>
+<br>I architect and maintain a distributed cloud-native infrastructure designed for high availability and extreme environmental resilience.
+<a href="https://status.bronitskii.work/status/homelab"
+              class="uptime-link" target="_blank" rel="noopener noreferrer">
+              Operating 3 homelab servers</a> in total, my stack leverages Docker, Caddy, and Cloudflare to host critical services like Vaultwarden and Komodo. To mitigate power grid instability in Ukraine, I engineered a custom state-synchronisation workflow: my server in Ukraine periodically polls API deployed on my other server to synchronise schedules for power outages. This data triggers automated ACPI S5 (Power Off) and rtcwake sequences, enabling unmanned, graceful shutdowns and hardware-level scheduled startups, with real-time status orchestration via ntfy push notifications.
+<br>
+<br><strong>Practical Automation:</strong>
+<br>I'm a strong advocate for efficiency through automation, I develop custom automated solutions to streamline my daily routine. To name a few projects, I have a barcode-based inventory system integrated via n8n, a context-aware iOS workflow that dynamically adjusts alarms based on calendar events, location, and live commute times; and a system that auto-schedules barber appointments based on mutual availability syncing with my calendars.
 
-            <br>Created sophisticated iPhone shortcuts that significantly
-            enhance my daily productivity.
-            Actively implementing the latest defensive technologies and protocols (i.e: PIV, FIDO2, U2F,
-            TOTP). Configure, optimise and maintain the work of my OpenWRT router. I am always open to exploring new
-            technologies and have taken part in closed beta testing programmes for
-            prominent tech companies such as Yubico.
+<br><br><strong>Security Architecture &amp; Experimentation:</strong>
+<br>Security is the foundational layer of my engineering philosophy. I implement a Zero Trust multi-layered defense strategy, utilizing YubiKeys for hardware-backed MFA and Post-Quantum Hybrid SSH authentication (mlkem768x25519-sha256). My network is hardened via OpenWRT segmentation, configured with VLESS for obfuscated tunneling, default-drop firewall rules and different subnets for isolation ensuring Least Privilege access. Additionally, I operate a public DNS-over-HTTPS service that applies key-based hashing for query protection, with access additionally controlled via password‑enforced whitelist authentication
+<br>
+<br><strong>Backups:</strong>
+<br>Komodo CI/CD sync with Forgejo
+Encrypted Databases + encrypted directories of Forgejo -> WebDav -> Nextcloud (cron)
           </p>
 
           <h3 style="text-align: center;">Photography:</h3>
@@ -159,26 +156,10 @@
             <br> Whether working on personal or professional projects, I am always striving to achieve the best possible
             results by continuously refining my photo editing and photographic techniques.
           </p>
-          <!-- <h5 style="text-align: left;">&gt; My Curriculum Vitaes:</h5>
-
-          <p style="text-align: left; border-left: 2px; border-right: 2px; border-color: #45717b; border-style: solid; border-radius: 14px; padding: 0 0.300rem 0rem 0.8rem; font-size: 12px; color: #00AA00;">
-            You can find my CVs attached below for your review. Simply click or tap on the links to have a detailed look at my skills, experience, and qualifications:
-          </p>
-
-          <h4 style="font-size: 10px; color: #00AA00; text-align: center; letter-spacing: 4px; padding: 0rem 0rem 0rem 0rem;">
-            <a href="https://nx23924.your-storageshare.de/s/4Nm4tS9wqfzcLtF" target="_blank" style="cursor: pointer; border-bottom: 0; font-size: 0.6rem;">Translator and Interpreter</a>
-          </h4>
-
-          <h4 style="font-size: 10px; color: #00AA00; text-align: center; letter-spacing: 4px; padding: 0rem 0rem 0rem 0rem;">
-            <a href="https://nx23924.your-storageshare.de/s/aHiNPPqZsMtwDk4" target="_blank" style="cursor: pointer; border-bottom: 0; font-size: 0.6rem;">Networking Administrator</a>
-          </h4> -->
         </div>
 
       </article>
 
-      <!-- 
-      MARK: Gallery
-      -->
       <article id="gallery" class="active" style="height: max-content">
         <nav class="breadcrumbs">
           <div>
@@ -294,266 +275,6 @@
         </div>
       </article>
 
-      <!-- 
-          MARK: Modals
-          Modal for full-size image 
-      -->
-
-      <div id="myModal1" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 1">
-          <div class="caption">
-            <h3>Wizard of the Glowing Woods</h3>
-            <p>Canon 7D mk II • 38mm • f/3.2 • exp 1/160</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal2" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 2">
-          <div class="caption">
-            <h3>Teslabot</h3>
-            <p>iPhone X</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal3" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 3">
-          <div class="caption">
-            <h3>Defiance in Red: A Silhouette of Solidarity</h3>
-            <p>iPhone 15 Pro</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal4" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 4">
-          <div class="caption">
-            <h3>Bike Embassy</h3>
-            <p>iPhone 15 Pro</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal5" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 5">
-          <div class="caption">
-            <h3>Reaching through time</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal6" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 6">
-          <div class="caption">
-            <h3>Cinematic Musing</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal7" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 7">
-          <div class="caption">
-            <h3>Makura-Nage</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal8" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 8">
-          <div class="caption">
-            <h3>Conversations with Time</h3>
-            <p>iPhone X</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal9" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 9">
-          <div class="caption">
-            <h3>The Watched and the Unseen</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal10" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 10">
-          <div class="caption">
-            <h3>Digital Infatuation</h3>
-            <p>Canon 7D mk II • f/2.8 • 21mm • exp 1/10</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal11" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 11">
-          <div class="caption">
-            <h3>The P.R.O.T.O.T.Y.P.E</h3>
-            <p>iPhone 15 Pro</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal12" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 12">
-          <div class="caption">
-            <h3>Blood In The Water</h3>
-            <p>iPhone 15 Pro</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal13" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 13">
-          <div class="caption">
-            <h3>Synthetics in the Aftermath</h3>
-            <p>Canon 1300D</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal14" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 14">
-          <div class="caption">
-            <h3>Cosmic Reflections</h3>
-            <p>Photoshop</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal15" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 15">
-          <div class="caption">
-            <h3>Interstellar Transactions</h3>
-            <p>Canon 1300D • 55mm • exp 1/400 • f/5.6</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal16" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 16">
-          <div class="caption">
-            <h3>The Night Carousel</h3>
-            <p>Canon 1300D • exp 1/400 • 18mm • f/4</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal17" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 17">
-          <div class="caption">
-            <h3>The Plight of the Pigeon</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="myModal18" class="modal">
-        <div class="loading-indicator" style="display: none">
-          <code class="loading-text"></code>
-        </div>
-        <span class="close">&times;</span>
-        <div class="modal-content">
-          <img src="" alt="Image 18">
-          <div class="caption">
-            <h3>Monochrome Mourning</h3>
-            <p>Canon 7D mk II</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 
-      MARK: Contact
-      -->
       <article id="contact">
         <nav class="breadcrumbs">
           <div>
@@ -581,7 +302,7 @@
             }
             </style>
             <li><a href="https://signal.me/#eu/Nv3O+tNeFeCa6TDJdJfqJJQ8R0fSJtVWaHQnUkVs4E7cvnUWeghLzJojur57O8Ip"
-              class="fa fa-signalapp" aria-hidden="true" style="color: #757575; font-size: 2.1rem;"></a></li>
+              class="fa fa-signalapp" aria-hidden="true" style="color: #757575; font-size: 2.1rem;" target="_blank" rel="noopener noreferrer"></a></li>
             <li><a href="imessage://vladislav@bronitskii.work" class="fa fa-comment" aria-hidden="true"
               style="color: #757575; font-size: 2.1rem;"></a></li>
             <li><a href="mailto:vladislav@bronitskii.work" class="fa fa-envelope" aria-hidden="true"
@@ -607,11 +328,260 @@
     </div>
   </div>
 
+  <div id="myModal1" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 1">
+      <div class="caption">
+        <h3>Wizard of the Glowing Woods</h3>
+        <p>Canon 7D mk II • 38mm • f/3.2 • exp 1/160</p>
+      </div>
+    </div>
+  </div>
 
-  <!-- BG -->
+  <div id="myModal2" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 2">
+      <div class="caption">
+        <h3>Teslabot</h3>
+        <p>iPhone X</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal3" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 3">
+      <div class="caption">
+        <h3>Defiance in Red: A Silhouette of Solidarity</h3>
+        <p>iPhone 15 Pro</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal4" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 4">
+      <div class="caption">
+        <h3>Bike Embassy</h3>
+        <p>iPhone 15 Pro</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal5" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 5">
+      <div class="caption">
+        <h3>Reaching through time</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal6" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 6">
+      <div class="caption">
+        <h3>Cinematic Musing</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal7" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 7">
+      <div class="caption">
+        <h3>Makura-Nage</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal8" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 8">
+      <div class="caption">
+        <h3>Conversations with Time</h3>
+        <p>iPhone X</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal9" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 9">
+      <div class="caption">
+        <h3>The Watched and the Unseen</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal10" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 10">
+      <div class="caption">
+        <h3>Digital Infatuation</h3>
+        <p>Canon 7D mk II • f/2.8 • 21mm • exp 1/10</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal11" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 11">
+      <div class="caption">
+        <h3>The P.R.O.T.O.T.Y.P.E</h3>
+        <p>iPhone 15 Pro</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal12" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 12">
+      <div class="caption">
+        <h3>Blood In The Water</h3>
+        <p>iPhone 15 Pro</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal13" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 13">
+      <div class="caption">
+        <h3>Synthetics in the Aftermath</h3>
+        <p>Canon 1300D</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal14" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 14">
+      <div class="caption">
+        <h3>Cosmic Reflections</h3>
+        <p>Photoshop</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal15" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 15">
+      <div class="caption">
+        <h3>Interstellar Transactions</h3>
+        <p>Canon 1300D • 55mm • exp 1/400 • f/5.6</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal16" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 16">
+      <div class="caption">
+        <h3>The Night Carousel</h3>
+        <p>Canon 1300D • exp 1/400 • 18mm • f/4</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal17" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 17">
+      <div class="caption">
+        <h3>The Plight of the Pigeon</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="myModal18" class="modal">
+    <div class="loading-indicator" style="display: none">
+      <code class="loading-text"></code>
+    </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img src="" alt="Image 18">
+      <div class="caption">
+        <h3>Monochrome Mourning</h3>
+        <p>Canon 7D mk II</p>
+      </div>
+    </div>
+  </div>
+
   <div id="bg"></div>
 
-  <!-- Scripts -->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/browser.min.js"></script>
   <script src="assets/js/breakpoints.min.js"></script>
