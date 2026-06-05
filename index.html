@@ -13,7 +13,7 @@
             type="image/x-icon"
             href="images/favicon.ico"
         />
-        <title>Vladislav Bronitskii</title>
+        <title>vladislav bronitskii</title>
         <meta charset="utf-8" />
         <meta
             name="viewport"
@@ -22,6 +22,66 @@
         <meta http-equiv="X-Content-Type-Options" content="nosniff" />
         <meta name="referrer" content="no-referrer-when-downgrade" />
         <link rel="stylesheet" href="assets/css/main.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+          tailwind.config = {
+            corePlugins: { preflight: false },
+            theme: {
+              extend: {
+                animation: {
+                  'text-reveal': 'textReveal 0.7s ease-out forwards',
+                  'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
+                  'fade-in': 'fadeIn 0.7s ease-out forwards',
+                  'scale-in': 'scaleIn 0.3s ease-out forwards',
+                  'slide-up': 'slideUp 0.5s ease-out forwards',
+                  'fade-in-down': 'fadeInDown 0.7s ease-out forwards',
+                  'dud-flicker': 'dudFlicker 0.1s ease-in-out infinite',
+                  'scanlines-scroll': 'scanlinesScroll 8s linear infinite',
+                  'noise-flicker': 'noiseFlicker 0.5s steps(5) infinite'
+                },
+                keyframes: {
+                  textReveal: {
+                    '0%': { color: '#333' },
+                    '100%': { color: '#fff' }
+                  },
+                  fadeInUp: {
+                    '0%': { opacity: '0', transform: 'translateY(8px)', color: '#333' },
+                    '100%': { opacity: '1', transform: 'translateY(0)', color: '#d83030fc' }
+                  },
+                  fadeIn: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' }
+                  },
+                  scaleIn: {
+                    '0%': { opacity: '0', transform: 'scale(0.95)' },
+                    '100%': { opacity: '1', transform: 'scale(1)' }
+                  },
+                  slideUp: {
+                    '0%': { opacity: '0', transform: 'translateY(20px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                  },
+                  fadeInDown: {
+                    '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                  },
+                  dudFlicker: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.3' }
+                  },
+                  scanlinesScroll: {
+                    '0%': { transform: 'translateY(0)' },
+                    '100%': { transform: 'translateY(4px)' }
+                  },
+                  noiseFlicker: {
+                    '0%': { opacity: '0.03' },
+                    '50%': { opacity: '0.06' },
+                    '100%': { opacity: '0.03' }
+                  }
+                }
+              }
+            }
+          };
+        </script>
         <noscript>
             <link rel="stylesheet" href="assets/css/noscript.css" />
         </noscript>
@@ -72,7 +132,7 @@
             <header id="header">
                 <div class="content">
                     <div class="inner">
-                        <h1 style="margin-top: 1rem">vladislav_bronitskii</h1>
+                        <h1 style="margin-top: 1rem" class="animate-fade-in-down">vladislav_bronitskii</h1>
                         <div class="scramble">
                             <div class="stext"></div>
                         </div>
@@ -101,15 +161,15 @@
                 </style>
                 <nav>
                     <ul>
-                        <li><a href="#more">More</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#more" class="hover:scale-110 transition-transform duration-300">More</a></li>
+                        <li><a href="#gallery" class="hover:scale-110 transition-transform duration-300">Gallery</a></li>
+                        <li><a href="#contact" class="hover:scale-110 transition-transform duration-300">Contact</a></li>
                     </ul>
                 </nav>
             </header>
 
-            <div id="main" style="display: none">
-                <article id="more" style="display: none" class="">
+            <div id="main">
+                <article id="more">
                     <nav class="breadcrumbs">
                         <div>
                             <span
@@ -128,14 +188,8 @@
                     <h2 class="major"></h2>
 
                     <div class="scrollbar">
-                        <h3 style="text-align: center">Languages:</h3>
-                        <p
-                            style="
-                                text-align: left;
-                                font-size: 13px;
-                                color: #5c0000fc;
-                            "
-                        >
+                        <h3 class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: center">Languages:</h3>
+                        <p class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: left; font-size: 13px;">
                             Proficiency in
                             <strong
                                 >Russian, English, Ukrainian and Polish</strong
@@ -156,14 +210,8 @@
                         <div class="progress-container">
                             <div class="progress-bar"></div>
                         </div>
-                        <h3 style="text-align: center">Home Network:</h3>
-                        <p
-                            style="
-                                text-align: left;
-                                font-size: 13px;
-                                color: #d83030fc;
-                            "
-                        >
+                        <h3 class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: center">Home Network:</h3>
+                        <p class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: left; font-size: 13px;">
                             <strong
                                 >Infrastructure &amp; Resilience
                                 Engineering:</strong
@@ -226,18 +274,8 @@
                             directories of Forgejo -> WebDav -> Nextcloud (cron)
                         </p>
 
-                        <h3 style="text-align: center">Photography:</h3>
-                        <p
-                            style="
-                                text-align: left;
-                                font-size: 13px;
-                                border-color: #fff;
-                                color: #00aa00;
-                                border-bottom: 1px;
-                                border-style: solid;
-                                padding: 0 0 28px 0px;
-                            "
-                        >
+                        <h3 class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: center">Photography:</h3>
+                        <p class="text-[#333] transition-colors duration-1000 ease-out" style="text-align: left; font-size: 13px;">
                             My passion for photography has led me to develop a
                             strong set of skills in photo editing with Adobe
                             Photoshop. For my projects I use both: a
@@ -305,7 +343,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img1.jpeg
                                 </div>
                             </div>
@@ -323,7 +361,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img2.jpeg
                                 </div>
                             </div>
@@ -341,7 +379,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img3.jpeg
                                 </div>
                             </div>
@@ -359,7 +397,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img4.jpeg
                                 </div>
                             </div>
@@ -377,7 +415,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img5.jpeg
                                 </div>
                             </div>
@@ -395,7 +433,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img6.jpeg
                                 </div>
                             </div>
@@ -413,7 +451,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img7.jpeg
                                 </div>
                             </div>
@@ -431,7 +469,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img8.jpeg
                                 </div>
                             </div>
@@ -449,7 +487,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img9.jpeg
                                 </div>
                             </div>
@@ -467,7 +505,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img10.jpeg
                                 </div>
                             </div>
@@ -485,7 +523,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img11.jpeg
                                 </div>
                             </div>
@@ -503,7 +541,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img12.jpeg
                                 </div>
                             </div>
@@ -521,7 +559,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img13.jpeg
                                 </div>
                             </div>
@@ -539,7 +577,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img14.jpeg
                                 </div>
                             </div>
@@ -557,7 +595,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img15.jpeg
                                 </div>
                             </div>
@@ -575,7 +613,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img16.jpeg
                                 </div>
                             </div>
@@ -593,7 +631,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img17.jpeg
                                 </div>
                             </div>
@@ -611,7 +649,7 @@
                                         )
                                     "
                                 />
-                                <div class="gallery-status">
+                                <div class="gallery-status text-[#555] opacity-0 translate-y-2 transition-all duration-700 ease-out">
                                     $ open img18.jpeg
                                 </div>
                             </div>
@@ -639,9 +677,15 @@
 
                     <ul class="icons">
                         <style>
+                            .icons .fa {
+                                transition: color 0.3s ease, transform 0.3s ease !important;
+                                display: inline-block;
+                            }
+
                             .icons .fa:hover {
                                 color: #d83030fc !important;
-                                transition: color 0.3s ease;
+                                transform: scale(1.15) !important;
+                                text-shadow: 0 0 8px rgba(216, 48, 48, 0.3);
                             }
 
                             .icons a {
@@ -710,6 +754,12 @@
                             border-top: 1px solid rgba(255, 255, 255, 0.1);
                         "
                     >
+                        <style>
+                            .gpg-key:hover {
+                                text-shadow: 0 0 10px rgba(216, 48, 48, 0.3);
+                                transform: scale(1.05);
+                            }
+                        </style>
                         <a
                             href="vladislav_bronitskii.pub"
                             download="vladislav_bronitskii.pub"
@@ -719,13 +769,14 @@
                                 align-items: center;
                                 color: #d83030fc;
                                 font-size: 0.7rem;
+                                transition: all 0.3s ease;
                             "
                             class="gpg-key"
                         >
                             <i
                                 class="fa fa-key-modern"
                                 aria-hidden="true"
-                                style="font-size: 0.8rem; margin-right: 0.3rem"
+                                style="font-size: 0.8rem; margin-right: 0.3rem; transition: transform 0.3s ease;"
                             ></i>
                             GPG.pub
                         </a>

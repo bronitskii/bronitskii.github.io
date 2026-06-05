@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const hackingAnimation = document.querySelector(".hacking-animation");
     if (hackingAnimation) hackingAnimation.remove();
     document.getElementById("main").style.display = "";
-    return;
-  }
+  } else {
 
   const bootLines = [
     {
@@ -229,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (bootStatus) bootStatus.textContent = "KERNEL INIT";
   showNextLine();
+  }
 });
 
 (function ($) {
@@ -289,6 +289,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var bootComplete = false;
 
   function hideArticleContent($article) {
+    const art = $article[0];
+    art.querySelectorAll(".animate-text-reveal, .animate-fade-in-up, .is-revealed").forEach(el => {
+      el.classList.remove("animate-text-reveal", "animate-fade-in-up", "is-revealed");
+    });
+    art.querySelectorAll(".line, h3").forEach(el => {
+      el.style.color = '';
+    });
+
     $article.removeClass("active");
     $article.hide();
     $main.hide();
@@ -362,6 +370,36 @@ document.addEventListener("DOMContentLoaded", function () {
           setTimeout(() => {
             articleHackingAnimation.remove();
             locked = false;
+            if (id === "more") {
+              const scrollEl = $article[0].querySelector(".scrollbar");
+              if (scrollEl) {
+                scrollEl.scrollTop = 0;
+                wrapParagraphLines(scrollEl);
+                const selector = ".line, h3";
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    revealInScrollable(scrollEl, selector);
+                  });
+                });
+                [200, 500, 1000].forEach(delay => {
+                  setTimeout(() => revealInScrollable(scrollEl, selector), delay);
+                });
+              }
+            } else if (id === "gallery") {
+              const scrollEl = $article[0].querySelector(".container");
+              if (scrollEl) {
+                scrollEl.scrollTop = 0;
+                const selector = ".gallery-status";
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    revealInScrollable(scrollEl, selector);
+                  });
+                });
+                [200, 500, 1000].forEach(delay => {
+                  setTimeout(() => revealInScrollable(scrollEl, selector), delay);
+                });
+              }
+            }
           }, 100);
         }, 100);
         return;
@@ -493,11 +531,13 @@ document.addEventListener("DOMContentLoaded", function () {
   $body.on("click", function (event) {
     const openModal = getOpenModal();
     if (openModal) return;
+    if (carouselModal && carouselModal.style.display === "block") return;
     if ($body.hasClass("is-article-visible")) $main._hide(true);
   });
 
   $window.on("keyup", function (event) {
     if (event.keyCode === 27) {
+      if (carouselModal && carouselModal.style.display === "block") return;
       const openModal = getOpenModal();
       if (openModal) {
         closeModal(openModal.id);
@@ -564,56 +604,179 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const galleryImgs = document.querySelectorAll(".gallery-item img");
-
-  function openModal(modalId, imgSrc) {
-    const modal = document.getElementById(modalId);
-    const modalImg = modal.querySelector(".modal-content img");
-    const modalCaption = modal.querySelector(".caption");
-    const loadingIndicator = modal.querySelector(".loading-indicator");
-
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
-    setTimeout(() => {
-      modal.style.opacity = 1;
-    }, 10);
-
-    modal.onclick = function (event) {
-      if (event.target === modal) {
-        closeModal(modalId);
-      }
-    };
-
-    const modalContent = modal.querySelector(".modal-content");
-    if (modalContent) {
-      modalContent.onclick = function (event) {
-        event.stopPropagation();
-      };
-    }
-
-    modalCaption.style.display = "none";
-    modalImg.style.display = "none";
-    loadingIndicator.style.display = "flex";
-
-    const newImg = new Image();
-    newImg.onload = function () {
-      loadingIndicator.style.display = "none";
-      modalImg.src = imgSrc;
-      modalImg.style.display = "block";
-      modalCaption.style.display = "block";
-    };
-    newImg.src = imgSrc;
+  var galleryData = [];
+  var carouselModal = null;
+  var currentCarouselIndex = 0;
+  function buildGalleryData() {
+    var items = document.querySelectorAll(".gallery-item img");
+    galleryData = [];
+    items.forEach(function(img, i) {
+      var modal = document.getElementById("myModal" + (i + 1));
+      if (!modal) return;
+      var caption = modal.querySelector(".caption");
+      if (!caption) return;
+      galleryData.push({
+        src: img.getAttribute("data-imgsrc"),
+        title: caption.querySelector("h3").textContent,
+        meta: caption.querySelector("p").textContent,
+      });
+    });
   }
 
-  function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
+  function setupCarousel() {
+    var c = document.createElement("div");
+    c.id = "carousel-modal";
+    c.className = "modal";
+    c.innerHTML =
+      '<span class="close">&times;</span>' +
+      '<div class="loading-indicator" style="display:none"><code class="loading-text"></code></div>' +
+      '<div class="carousel-container">' +
+        '<div class="carousel-item carousel-item--prev"><img src="" alt=""/></div>' +
+        '<div class="carousel-item carousel-item--current">' +
+          '<div class="flashcard">' +
+            '<div class="flashcard-inner">' +
+              '<div class="flashcard-front">' +
+                '<img src="" alt=""/>' +
+                '<div class="flip-hint">[ click the picture ]</div>' +
+              '</div>' +
+              '<div class="flashcard-back">' +
+                '<div class="flashcard-title"></div>' +
+                '<div class="flashcard-divider"></div>' +
+                '<div class="flashcard-meta"></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="carousel-item carousel-item--next"><img src="" alt=""/></div>' +
+      '</div>' +
+      '<div class="carousel-arrow carousel-arrow--left">&lsaquo;</div>' +
+      '<div class="carousel-arrow carousel-arrow--right">&rsaquo;</div>';
+    document.body.appendChild(c);
 
+    c.querySelector(".close").onclick = function(e) { e.stopPropagation(); closeCarousel(); };
+    c.querySelector(".carousel-arrow--left").onclick = function(e) { e.stopPropagation(); navigateCarousel(-1); };
+    c.querySelector(".carousel-arrow--right").onclick = function(e) { e.stopPropagation(); navigateCarousel(1); };
+    c.querySelector(".flashcard").onclick = function(e) { e.stopPropagation(); flipCarouselFlashcard(); };
+    c.querySelector(".carousel-item--prev").onclick = function(e) { e.stopPropagation(); navigateCarousel(-1); };
+    c.querySelector(".carousel-item--next").onclick = function(e) { e.stopPropagation(); navigateCarousel(1); };
+
+    return c;
+  }
+
+  function openCarousel(index) {
+    if (!carouselModal) carouselModal = setupCarousel();
+    currentCarouselIndex = index;
+
+    var data = galleryData[index];
+    var currentImg = carouselModal.querySelector(".carousel-item--current img");
+    var loadingIndicator = carouselModal.querySelector(".loading-indicator");
+
+    carouselModal.querySelector(".flashcard").classList.remove("flipped");
+    carouselModal.style.display = "block";
+    carouselModal.style.transform = "scale(1)";
+    document.body.style.overflow = "hidden";
+    setTimeout(function() { carouselModal.style.opacity = 1; }, 10);
+
+    carouselModal.querySelector(".flashcard-title").textContent = data.title;
+    carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+
+    currentImg.style.opacity = "0";
+    loadingIndicator.style.display = "flex";
+    loadingIndicator.querySelector(".loading-text").textContent =
+      "[v:~]$ curl -LO " + new URL(window.location.href).origin + "/" + data.src;
+
+    var newImg = new Image();
+    newImg.onload = function() {
+      currentImg.src = data.src;
+      currentImg.style.display = "block";
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          loadingIndicator.style.display = "none";
+          currentImg.style.opacity = "1";
+        });
+      });
+    };
+    newImg.src = data.src;
+
+    updateAdjacentImages();
+  }
+
+  function updateAdjacentImages() {
+    if (!carouselModal) return;
+    var total = galleryData.length;
+    var prevImg = carouselModal.querySelector(".carousel-item--prev img");
+    var nextImg = carouselModal.querySelector(".carousel-item--next img");
+    var prevIdx = (currentCarouselIndex - 1 + total) % total;
+    var nextIdx = (currentCarouselIndex + 1) % total;
+    prevImg.style.opacity = "0";
+    nextImg.style.opacity = "0";
+    setTimeout(function() {
+      prevImg.src = galleryData[prevIdx].src;
+      nextImg.src = galleryData[nextIdx].src;
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          prevImg.style.opacity = "";
+          nextImg.style.opacity = "";
+        });
+      });
+    }, 180);
+  }
+
+  function navigateCarousel(dir) {
+    if (!carouselModal) return;
+    var total = galleryData.length;
+    currentCarouselIndex = (currentCarouselIndex + dir + total) % total;
+
+    var currentItem = carouselModal.querySelector(".carousel-item--current");
+    var currentImg = currentItem.querySelector(".flashcard-front img");
+    var data = galleryData[currentCarouselIndex];
+    carouselModal.querySelector(".flashcard").classList.remove("flipped");
+    carouselModal.querySelector(".flashcard-title").textContent = data.title;
+    carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+
+    var shiftOut = dir > 0 ? "-12%" : "12%";
+    currentImg.style.transform = "translateX(" + shiftOut + ")";
+    currentImg.style.opacity = "0";
+
+    setTimeout(function() {
+      currentImg.style.transition = "none";
+      currentImg.style.transform = "translateX(" + (dir > 0 ? "12%" : "-12%") + ")";
+      currentImg.src = data.src;
+      currentImg.offsetHeight;
+
+      currentImg.style.transition = "";
+      currentImg.style.transform = "translateX(0)";
+      currentImg.style.opacity = "1";
+    }, 200);
+
+    updateAdjacentImages();
+  }
+
+  function flipCarouselFlashcard() {
+    if (!carouselModal) return;
+    carouselModal.querySelector(".flashcard").classList.toggle("flipped");
+  }
+
+  function closeCarousel() {
+    if (!carouselModal) return;
     document.body.style.overflow = "";
-    modal.style.opacity = 0;
-    setTimeout(() => {
-      modal.style.display = "none";
+    carouselModal.style.opacity = 0;
+    carouselModal.style.transform = "scale(0.95)";
+    setTimeout(function() {
+      carouselModal.style.display = "none";
     }, 300);
   }
+  document.addEventListener("keydown", function(e) {
+    if (!carouselModal || carouselModal.style.display !== "block") return;
+    if (e.key === "ArrowLeft") { navigateCarousel(-1); e.preventDefault(); }
+    else if (e.key === "ArrowRight") { navigateCarousel(1); e.preventDefault(); }
+    else if (e.key === "Escape") { closeCarousel(); e.preventDefault(); }
+  });
+  function openModal(modalId, imgSrc) {
+    var idx = parseInt(modalId.replace("myModal", ""), 10) - 1;
+    if (idx >= 0 && idx < galleryData.length) openCarousel(idx);
+  }
+  function closeModal(modalId) { closeCarousel(); }
 
   window.openModal = openModal;
   window.closeModal = closeModal;
@@ -703,7 +866,85 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  function updateProgressBar(article) {
+    const progressBar = article.querySelector(".progress-bar");
+    if (!progressBar) return;
+
+    const scrollElement = article.querySelector(".scrollbar, .container");
+    if (!scrollElement) return;
+    const scrollPosition = scrollElement.scrollTop;
+    const scrollHeight = scrollElement.scrollHeight;
+    const clientHeight = scrollElement.clientHeight;
+
+    if (scrollHeight <= clientHeight) {
+      progressBar.style.width = "0%";
+      return;
+    }
+
+    const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
+    progressBar.style.width = scrolled + "%";
+  }
+
+  function revealInScrollable(scrollEl, itemSelector) {
+    if (!scrollEl) return;
+    const containerRect = scrollEl.getBoundingClientRect();
+    const revealBottom = containerRect.bottom + 100;
+
+    const isMore = scrollEl.closest('#more') !== null;
+
+    scrollEl.querySelectorAll(itemSelector).forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const elBottom = rect.bottom;
+      const elTop = rect.top;
+
+      if (elBottom > containerRect.top && elTop < revealBottom) {
+        if (isMore) {
+          el.style.color = '#fff';
+        } else {
+          el.classList.add("animate-fade-in-up");
+        }
+      } else {
+        if (isMore) {
+          el.style.color = '';
+        } else {
+          el.classList.remove("animate-fade-in-up");
+        }
+      }
+    });
+  }
+  function wrapParagraphLines(container) {
+    container.querySelectorAll("p").forEach(p => {
+      if (p.querySelector(".line")) return;
+
+      const groups = [];
+      let current = [];
+
+      for (let i = 0; i < p.childNodes.length; i++) {
+        const node = p.childNodes[i];
+        if (node.nodeType === 1 && node.tagName === "BR") {
+          if (current.length) { groups.push(current); current = []; }
+        } else {
+          if (node.nodeType === 3 && !node.textContent.trim()) continue;
+          current.push(node);
+        }
+      }
+      if (current.length) groups.push(current);
+        if (groups.length === 0) return;
+
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < groups.length; i++) {
+        const span = document.createElement("span");
+        span.className = "line text-[#333] transition-colors duration-1000 ease-out";
+        for (const n of groups[i]) span.appendChild(n);
+        fragment.appendChild(span);
+      }
+      p.textContent = '';
+      p.appendChild(fragment);
+    });
+  }
+
   window.addEventListener("load", function () {
+    buildGalleryData();
     var galleryImages = document.querySelectorAll(".gallery-item img");
     var imageModals = document.querySelectorAll('[id^="myModal"]');
     var closeButtons = document.querySelectorAll('[id^="myModal"] .close');
@@ -733,7 +974,7 @@ document.addEventListener("DOMContentLoaded", function () {
           typeWriterEffect(
             "curl -LO " + new URL(window.location.href).origin + "/" + imgSrc,
           );
-          openModal("myModal" + (index + 1), this.getAttribute("data-imgsrc"));
+          openCarousel(index);
         }
       };
     });
@@ -747,32 +988,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       };
     });
-
-    function updateProgressBar(article) {
-      const progressBar = article.querySelector(".progress-bar");
-      if (!progressBar) return;
-
-      const scrollElement = article.querySelector(".scrollbar, .container");
-      if (!scrollElement) return;
-      const scrollPosition = scrollElement.scrollTop;
-      const scrollHeight = scrollElement.scrollHeight;
-      const clientHeight = scrollElement.clientHeight;
-
-      if (scrollHeight <= clientHeight) {
-        progressBar.style.width = "0%";
-        return;
-      }
-
-      const scrolled = (scrollPosition / (scrollHeight - clientHeight)) * 100;
-      progressBar.style.width = scrolled + "%";
-    }
-
     document
       .querySelectorAll("#more .scrollbar, #gallery .container")
       .forEach((element) => {
+        const article = element.closest("article");
+        const isMore = article && article.id === "more";
+
         element.addEventListener("scroll", () => {
-          updateProgressBar(element.closest("article"));
+          updateProgressBar(article);
+          const sel = isMore
+            ? (element.querySelector(".line") ? ".line, h3" : "p, h3")
+            : ".gallery-status";
+          revealInScrollable(element, sel);
         });
       });
+
   });
 })(jQuery);

@@ -31,6 +31,11 @@ body.is-preload #header .content .inner {
 
 /* Main */
 
+/* Hide boot animation overlay when JavaScript is disabled. */
+.hacking-animation {
+  display: none !important;
+}
+
 #main article {
   opacity: 1;
   margin: 4rem 0 0 0;
