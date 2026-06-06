@@ -1,9 +1,12 @@
+var cachedVisit = false;
+
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("fast") === "true" || sessionStorage.getItem("bootSeen")) {
     const hackingAnimation = document.querySelector(".hacking-animation");
     if (hackingAnimation) hackingAnimation.remove();
     document.getElementById("main").style.display = "";
+    cachedVisit = true;
   } else {
 
   const bootLines = [
@@ -256,9 +259,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   $window.on("load", function () {
-    window.setTimeout(function () {
+    if (cachedVisit) {
+      $body.addClass("terminal-reveal");
       $body.removeClass("is-preload");
-    }, 100);
+      scrambleReveal();
+    } else {
+      window.setTimeout(function () {
+        $body.removeClass("is-preload");
+      }, 100);
+    }
   });
 
   if (browser.name == "ie") {
@@ -275,6 +284,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 250);
       })
       .triggerHandler("resize.flexbox-fix");
+  }
+
+  function scrambleReveal() {
+    var h1 = document.querySelector("#header h1");
+    var navItems = document.querySelectorAll("#header nav li");
+
+    // Suppress the default animate-fade-in-down that fires when is-preload lifts
+    if (h1) h1.classList.remove("animate-fade-in-down");
+
+    // Override terminal-reveal opacity:0 with inline style so CSS animation can run
+    if (h1) h1.style.opacity = "1";
+
+    // Glitch the headline into view
+    if (h1) h1.classList.add("glitch-reveal");
+
+    // Stagger nav items with a short delay and shorter animation
+    navItems.forEach(function (li, i) {
+      li.style.opacity = "1";
+      li.classList.add("glitch-reveal-nav");
+      li.style.animationDelay = (0.12 + i * 0.06) + "s";
+    });
+
+    // Clean up after all animations settle (h1 800ms + nav stagger ~180ms + buffer)
+    setTimeout(function () {
+      $body.removeClass("terminal-reveal");
+      if (h1) h1.classList.remove("glitch-reveal");
+      navItems.forEach(function (li) { li.classList.remove("glitch-reveal-nav"); });
+    }, 1000);
   }
 
   var $nav = $header.children("nav"),
@@ -677,6 +714,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.overflow = "hidden";
     setTimeout(function() { carouselModal.style.opacity = 1; }, 10);
 
+    // Hide carousel until image loads — only loading indicator + blur visible.
     var container = carouselModal.querySelector(".carousel-container");
     var arrows = carouselModal.querySelectorAll(".carousel-arrow");
     container.style.visibility = "hidden";
@@ -832,6 +870,9 @@ document.addEventListener("DOMContentLoaded", function () {
           output += from;
         }
       }
+      // innerHTML is safe here: output is built from a hardcoded
+      // character set (!<>-_\/[]{}ß%&*… etc.) and hardcoded phrase
+      // array — no user input reaches this point.
       this.el.innerHTML = output;
       if (complete === this.queue.length) {
         this.resolve();
