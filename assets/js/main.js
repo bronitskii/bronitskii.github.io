@@ -677,21 +677,28 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.overflow = "hidden";
     setTimeout(function() { carouselModal.style.opacity = 1; }, 10);
 
-    carouselModal.querySelector(".flashcard-title").textContent = data.title;
-    carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
-
+    var container = carouselModal.querySelector(".carousel-container");
+    var arrows = carouselModal.querySelectorAll(".carousel-arrow");
+    container.style.visibility = "hidden";
+    arrows.forEach(function(a) { a.style.visibility = "hidden"; });
     currentImg.style.opacity = "0";
+
     loadingIndicator.style.display = "flex";
     loadingIndicator.querySelector(".loading-text").textContent =
       "[v:~]$ curl -LO " + new URL(window.location.href).origin + "/" + data.src;
 
     var newImg = new Image();
     newImg.onload = function() {
+      carouselModal.querySelector(".flashcard-title").textContent = data.title;
+      carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+
       currentImg.src = data.src;
       currentImg.style.display = "block";
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
           loadingIndicator.style.display = "none";
+          container.style.visibility = "";
+          arrows.forEach(function(a) { a.style.visibility = ""; });
           currentImg.style.opacity = "1";
         });
       });
@@ -731,14 +738,15 @@ document.addEventListener("DOMContentLoaded", function () {
     var currentImg = currentItem.querySelector(".flashcard-front img");
     var data = galleryData[currentCarouselIndex];
     carouselModal.querySelector(".flashcard").classList.remove("flipped");
-    carouselModal.querySelector(".flashcard-title").textContent = data.title;
-    carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
 
     var shiftOut = dir > 0 ? "-12%" : "12%";
     currentImg.style.transform = "translateX(" + shiftOut + ")";
     currentImg.style.opacity = "0";
 
     setTimeout(function() {
+      carouselModal.querySelector(".flashcard-title").textContent = data.title;
+      carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+
       currentImg.style.transition = "none";
       currentImg.style.transform = "translateX(" + (dir > 0 ? "12%" : "-12%") + ")";
       currentImg.src = data.src;
