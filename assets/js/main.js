@@ -889,7 +889,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const phrases = [
     "Professional Interpreter",
-    "IT Service Engineer & InfoSec Enthusiast.",
+    "InfoSec Enthusiast",
+    "Identity & Access Management IT Service Engineer",
   ];
 
   const el = document.querySelector(".stext");
