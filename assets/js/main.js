@@ -729,6 +729,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function commitCarouselSlide(index, token) {
+    if (token !== carouselNavToken) return false;
+    if (!carouselModal || carouselModal.style.display !== "block") return false;
+    var data = galleryData[index];
+    if (!data) return false;
+    currentCarouselIndex = index;
+    carouselModal.querySelector(".flashcard-title").textContent = data.title;
+    carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+    carouselModal.querySelector(".carousel-item--current img").src = data.src;
+    updateCarouselCounter();
+    return true;
+  }
+
   function setupCarousel() {
     var c = document.createElement("div");
     c.id = "carousel-modal";
@@ -805,10 +818,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (token !== carouselNavToken) return;
       if (!carouselModal || carouselModal.style.display !== "block") return;
       if (carouselTypeInterval) { clearInterval(carouselTypeInterval); carouselTypeInterval = null; }
-      carouselModal.querySelector(".flashcard-title").textContent = data.title;
-      carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+      commitCarouselSlide(index, token);
 
-      currentImg.src = data.src;
       currentImg.style.display = "block";
 
       var revealTL = gsap.timeline();
@@ -828,15 +839,12 @@ document.addEventListener("DOMContentLoaded", function () {
     newImg.onerror = function() {
       if (token !== carouselNavToken) return;
       if (!carouselModal || carouselModal.style.display !== "block") return;
-      carouselModal.querySelector(".flashcard-title").textContent = data.title;
-      carouselModal.querySelector(".flashcard-meta").textContent = data.meta;
+      commitCarouselSlide(index, token);
       hideCarouselLoader();
       container.style.visibility = "";
       arrows.forEach(function(a) { a.style.visibility = ""; });
     };
     newImg.src = data.src;
-
-    updateCarouselCounter();
   }
 
   function navigateCarousel(dir) {
@@ -891,10 +899,8 @@ document.addEventListener("DOMContentLoaded", function () {
       carouselTween.to(tintEl, { opacity: 0, duration: 0.07, ease: "power2.out" }, 0.13);
 
       carouselTween.call(function() {
-        titleEl.textContent = data.title;
-        metaEl.textContent = data.meta;
-        currentImg.src = data.src;
-        updateCarouselCounter();
+        if (token !== carouselNavToken) return;
+        commitCarouselSlide(index, token);
       }, null, 0.1);
 
       carouselTween.to(photo, { x: 0, opacity: 1, duration: 0.12, ease: "power2.out" }, 0.1);
@@ -906,6 +912,8 @@ document.addEventListener("DOMContentLoaded", function () {
     preloader.onload = function() {
       if (token !== carouselNavToken) return;
       if (!carouselModal || carouselModal.style.display !== "block") return;
+      carouselModal.querySelector(".carousel-container").style.visibility = "";
+      carouselModal.querySelectorAll(".carousel-arrow").forEach(function(a) { a.style.visibility = ""; });
       hideCarouselLoader();
       playSwitch();
     };
@@ -913,9 +921,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (token !== carouselNavToken) return;
       if (!carouselModal || carouselModal.style.display !== "block") return;
       hideCarouselLoader();
-      titleEl.textContent = data.title;
-      metaEl.textContent = data.meta;
-      updateCarouselCounter();
+      commitCarouselSlide(index, token);
     };
     preloader.src = data.src;
   }

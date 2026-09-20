@@ -81,6 +81,36 @@ ul {
     border: none;
 }
 
+html,
+body,
+#main,
+.main,
+.scrollbar,
+#gallery .container,
+.container,
+.rotonde-canvas,
+#carousel-modal,
+.carousel-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#main::-webkit-scrollbar,
+.main::-webkit-scrollbar,
+.scrollbar::-webkit-scrollbar,
+#gallery .container::-webkit-scrollbar,
+.container::-webkit-scrollbar,
+.rotonde-canvas::-webkit-scrollbar,
+#carousel-modal::-webkit-scrollbar,
+.carousel-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+    background: transparent;
+}
+
 article,
 header,
 nav {
