@@ -64,23 +64,21 @@ ul {
     vertical-align: baseline;
 }
 
-body {
-    scrollbar-color: #374043 #202628;
-    scrollbar-width: 3px;
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-body::-webkit-scrollbar {
-    width: 3px;
-    background-color: #202628;
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+    background: transparent;
 }
 
-body::-webkit-scrollbar-thumb {
-    background-color: #6e8898;
-    border-radius: 20px;
-}
-
-body:hover::-webkit-scrollbar-thumb {
-    background-color: #d83030fc;
+*::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: none;
 }
 
 article,
@@ -983,25 +981,17 @@ body.is-preload #header .content .inner {
 
 .scrollbar {
     overflow-y: auto;
-    scrollbar-width: 3px;
-    scrollbar-color: #374043 #202628;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     height: 70vh;
     padding-right: 2rem;
     padding-left: 2rem;
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 3px;
-    background-color: #202628;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-    background-color: #6e8898;
-    border-radius: 20px;
-}
-
-.scrollbar:hover::-webkit-scrollbar-thumb {
-    background-color: #d83030fc;
+    width: 0;
+    height: 0;
+    display: none;
 }
 
 @media screen and (max-width: 736px) {
@@ -1012,12 +1002,8 @@ body.is-preload #header .content .inner {
 
     .scrollbar::-webkit-scrollbar {
         width: 0;
-        display: hidden;
-    }
-
-    .scrollbar::-webkit-scrollbar-thumb {
-        display: hidden;
-        border-radius: 0;
+        height: 0;
+        display: none;
     }
 }
 
@@ -1149,18 +1135,15 @@ body.is-preload #header .content .inner {
     overflow-y: auto;
 }
 
+.container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 .container::-webkit-scrollbar {
-    width: 3px;
-    background-color: #202628;
-}
-
-.container::-webkit-scrollbar-thumb {
-    background-color: #6e8898;
-    border-radius: 20px;
-}
-
-.container:hover::-webkit-scrollbar-thumb {
-    background-color: #d83030fc;
+    width: 0;
+    height: 0;
+    display: none;
 }
 
 #gallery h4 {
