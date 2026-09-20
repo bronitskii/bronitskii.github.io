@@ -1517,6 +1517,8 @@ body.is-preload #header .content .inner {
     height: 40%;
     width: 100svw;
     max-width: 100svw;
+    z-index: 4;
+    pointer-events: none;
 }
 
 .loading-indicator img {
