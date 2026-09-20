@@ -820,6 +820,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (carouselTypeInterval) { clearInterval(carouselTypeInterval); carouselTypeInterval = null; }
       commitCarouselSlide(index, token);
 
+      carouselModal.querySelector(".carousel-photo").style.visibility = "";
       currentImg.style.display = "block";
 
       var revealTL = gsap.timeline();
@@ -876,7 +877,8 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.set(photo, { x: 0, opacity: 1 });
     gsap.set([sliceEl, tintEl], { opacity: 0 });
     gsap.set(sliceEl, { yPercent: -101 });
-    gsap.set([captionEl, counterEl], { opacity: 1 });
+    gsap.set([captionEl, counterEl], { opacity: 0 });
+    photo.style.visibility = "hidden";
 
     showCarouselLoader(data.src);
 
@@ -914,6 +916,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!carouselModal || carouselModal.style.display !== "block") return;
       carouselModal.querySelector(".carousel-container").style.visibility = "";
       carouselModal.querySelectorAll(".carousel-arrow").forEach(function(a) { a.style.visibility = ""; });
+      photo.style.visibility = "";
       hideCarouselLoader();
       playSwitch();
     };
@@ -922,6 +925,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!carouselModal || carouselModal.style.display !== "block") return;
       hideCarouselLoader();
       commitCarouselSlide(index, token);
+      photo.style.visibility = "";
+      gsap.set([captionEl, counterEl], { opacity: 1 });
+      carouselModal.querySelector(".carousel-container").style.visibility = "";
+      carouselModal.querySelectorAll(".carousel-arrow").forEach(function(a) { a.style.visibility = ""; });
     };
     preloader.src = data.src;
   }
@@ -936,6 +943,11 @@ document.addEventListener("DOMContentLoaded", function () {
       gsap.killTweensOf(loader);
       loader.style.display = "none";
     }
+    var restingPhoto = carouselModal.querySelector(".carousel-photo");
+    if (restingPhoto) restingPhoto.style.visibility = "";
+    var restingCaption = carouselModal.querySelector(".carousel-caption");
+    var restingCounter = carouselModal.querySelector(".carousel-counter");
+    if (restingCaption || restingCounter) gsap.set([restingCaption, restingCounter].filter(Boolean), { opacity: 1 });
     document.body.style.overflow = "";
 
     var container = carouselModal.querySelector(".carousel-container");
